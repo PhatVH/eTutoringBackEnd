@@ -18,10 +18,9 @@ class CreateMessageTable extends Migration
             $table->unsignedInteger('tutor_ID');
             $table->unsignedInteger('student_ID');
             $table->string('message_content', 100);
-            $table->timestamps('message_date_add');
+            $table->timestamps();
 
-            $table->foreign('tutor_ID')->references('tutor_ID')->on('Tutor');
-            $table->foreign('student_ID')->references('student_ID')->on('Student');
+
         });
     }
 

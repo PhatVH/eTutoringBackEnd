@@ -15,9 +15,10 @@ class CreateDocumentTable extends Migration
     {
         Schema::create('Document', function (Blueprint $table) {
             $table->increments('document_ID');
-            $table->integer('student_ID');
+            $table->unsignedInteger('student_ID')->nullable();
+            $table->unsignedInteger('tutor_ID')->nullable();
             $table->string('document_name', 100);
-            $table->timestamps('document_date_add');
+            $table->timestamps();
         });
     }
 
