@@ -20,6 +20,7 @@ class CreateReportTable extends Migration
             $table->string('report_description', 100);
             $table->timestamps();
 
+            $table->foreign('student_ID')->references('student_ID')->on('Student');
         });
     }
 

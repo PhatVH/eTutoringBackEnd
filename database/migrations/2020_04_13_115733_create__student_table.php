@@ -18,7 +18,6 @@ class CreateStudentTable extends Migration
             $table->string('student_name', 100);
             $table->string('student_email', 20);
             $table->string('student_phone', 100);
-            $table->unsignedInteger('tutor_ID');
             $table->timestamps();
         });
     }

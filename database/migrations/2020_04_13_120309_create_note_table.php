@@ -18,8 +18,10 @@ class CreateNoteTable extends Migration
             $table->unsignedInteger('student_ID');
             $table->unsignedInteger('tutor_ID');
             $table->string('note_content', 100);
-            $table->timestamps();
+            $table->timestamps('note_date_add');
 
+            $table->foreign('student_ID')->references('student_ID')->on('Student');
+            $table->foreign('tutor_ID')->references('tutor_ID')->on('Tutor');
         });
     }
 

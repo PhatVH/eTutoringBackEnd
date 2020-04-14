@@ -18,8 +18,12 @@ class CreateTutorTable extends Migration
             $table->string('tutor_name', 100);
             $table->string('tutor_phone', 20);
             $table->string('tutor_email', 100);
+            $table->unsignedInteger('student_ID')->nullable();
+            $table->unsignedInteger('document_ID')->nullable();
             $table->timestamps();
 
+            $table->foreign('student_ID')->references('student_ID')->on('Student');
+            $table->foreign('document_ID')->references('document_ID')->on('Document')->onDelete('cascade');
         });
     }
 

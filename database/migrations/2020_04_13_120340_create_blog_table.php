@@ -19,8 +19,10 @@ class CreateBlogTable extends Migration
             $table->unsignedInteger('tutor_ID');
             $table->string('blog_title', 1000);
             $table->string('blog_image', 1000);
-            $table->timestamps();
+            $table->timestamps('date_add');
 
+            $table->foreign('student_ID')->references('student_ID')->on('Student');
+            $table->foreign('tutor_ID')->references('tutor_ID')->on('Tutor');
         });
     }
 
