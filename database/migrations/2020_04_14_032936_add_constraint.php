@@ -15,36 +15,36 @@ class AddConstraint extends Migration
     {
         //Add constraints to tables
 
-        Schema::table('Student', function (Blueprint $table) {
-            $table->foreign('tutor_ID')->references('tutor_ID')->on('Tutor');
+        Schema::table('students', function (Blueprint $table) {
+            $table->foreign('tutor_ID')->references('id')->on('tutors');
         });
 
         // Schema::table('Tutor', function (Blueprint $table) {
         //     $table->foreign('document_ID')->references('document_ID')->on('Document')->onDelete('cascade');
         // });
 
-        Schema::table('Document', function (Blueprint $table) {
-            $table->foreign('student_ID')->references('student_ID')->on('Student')->onDelete('cascade');
-            $table->foreign('tutor_ID')->references('tutor_ID')->on('Tutor')->onDelete('cascade');
+        Schema::table('documents', function (Blueprint $table) {
+            $table->foreign('student_ID')->references('id')->on('students')->onDelete('cascade');
+            $table->foreign('tutor_ID')->references('id')->on('tutors')->onDelete('cascade');
         });
 
-        Schema::table('Message', function (Blueprint $table) {
-            $table->foreign('tutor_ID')->references('tutor_ID')->on('Tutor');
-            $table->foreign('student_ID')->references('student_ID')->on('Student');
+        Schema::table('messages', function (Blueprint $table) {
+            $table->foreign('tutor_ID')->references('id')->on('tutors');
+            $table->foreign('student_ID')->references('id')->on('students');
         });
 
-        Schema::table('Report', function (Blueprint $table) {
-            $table->foreign('student_ID')->references('student_ID')->on('Student');
+        Schema::table('reports', function (Blueprint $table) {
+            $table->foreign('student_ID')->references('id')->on('students');
         });
 
-        Schema::table('Note', function (Blueprint $table) {
-            $table->foreign('student_ID')->references('student_ID')->on('Student');
-            $table->foreign('tutor_ID')->references('tutor_ID')->on('Tutor');
+        Schema::table('notes', function (Blueprint $table) {
+            $table->foreign('student_ID')->references('id')->on('students');
+            $table->foreign('tutor_ID')->references('id')->on('tutors');
         });
 
-        Schema::table('Blog', function (Blueprint $table) {
-            $table->foreign('student_ID')->references('student_ID')->on('Student');
-            $table->foreign('tutor_ID')->references('tutor_ID')->on('Tutor');
+        Schema::table('blogs', function (Blueprint $table) {
+            $table->foreign('student_ID')->references('id')->on('students');
+            $table->foreign('tutor_ID')->references('id')->on('tutors');
         });
     }
 

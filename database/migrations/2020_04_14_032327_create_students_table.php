@@ -13,8 +13,8 @@ class CreateStudentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('Student', function (Blueprint $table) {
-            $table->increments('student_ID');
+        Schema::create('students', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('student_name', 100);
             $table->string('student_email', 20);
             $table->string('student_phone', 100);

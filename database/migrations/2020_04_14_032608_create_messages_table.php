@@ -13,10 +13,10 @@ class CreateMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Message', function (Blueprint $table) {
-            $table->increments('message_ID');
-            $table->unsignedInteger('tutor_ID');
-            $table->unsignedInteger('student_ID');
+        Schema::create('messages', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('tutor_ID');
+            $table->unsignedBigInteger('student_ID');
             $table->string('message_content', 100);
             $table->timestamps();
         });

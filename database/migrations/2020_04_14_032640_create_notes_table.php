@@ -13,10 +13,10 @@ class CreateNotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Note', function (Blueprint $table) {
-            $table->increments('note_ID');
-            $table->unsignedInteger('student_ID');
-            $table->unsignedInteger('tutor_ID');
+        Schema::create('notes', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('student_ID');
+            $table->unsignedBigInteger('tutor_ID');
             $table->string('note_content', 100);
             $table->timestamps();
         });

@@ -13,10 +13,10 @@ class CreateDocumentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('Document', function (Blueprint $table) {
-            $table->increments('document_ID');
-            $table->unsignedInteger('student_ID')->nullable();
-            $table->unsignedInteger('tutor_ID')->nullable();
+        Schema::create('documents', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('student_ID')->nullable();
+            $table->unsignedBigInteger('tutor_ID')->nullable();
             $table->string('document_name', 100);
             $table->timestamps();
         });
