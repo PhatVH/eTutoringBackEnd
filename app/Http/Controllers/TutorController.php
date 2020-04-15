@@ -14,7 +14,9 @@ class TutorController extends Controller
      */
     public function index()
     {
-        //
+        $tutors = Tutor::all();
+
+        return view('tutors.index', ['tutors' => $tutors]);
     }
 
     /**
@@ -24,7 +26,7 @@ class TutorController extends Controller
      */
     public function create()
     {
-        //
+        return view('tutors.create');
     }
 
     /**
@@ -35,7 +37,14 @@ class TutorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tutor = new Tutor();
+
+        $tutor->tutor_name = request('tutor_name');
+        $tutor->tutor_phone = request('tutor_phone');
+        $tutor->tutor_email = request('tutor_email');
+        $tutor->save();
+
+        return redirect('/tutors');
     }
 
     /**
@@ -57,7 +66,7 @@ class TutorController extends Controller
      */
     public function edit(Tutor $tutor)
     {
-        //
+        return view('tutors.edit', compact('tutor'));
     }
 
     /**
@@ -69,7 +78,13 @@ class TutorController extends Controller
      */
     public function update(Request $request, Tutor $tutor)
     {
-        //
+
+        $tutor->tutor_name = request('tutor_name');
+        $tutor->tutor_phone = request('tutor_phone');
+        $tutor->tutor_email = request('tutor_email');
+        $tutor->save();
+
+        return redirect('/tutors');
     }
 
     /**
@@ -80,6 +95,8 @@ class TutorController extends Controller
      */
     public function destroy(Tutor $tutor)
     {
-        //
+        $tutor->delete();
+
+        return redirect('/tutors');
     }
 }

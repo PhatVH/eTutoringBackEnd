@@ -25,22 +25,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     <!-- Style-sheets -->
     <!-- Bootstrap Css -->
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <!-- Bootstrap Css -->
     <!-- Bars Css -->
-    <link rel="stylesheet" href="css/bar.css">
+    <link rel="stylesheet" href="/css/bar.css">
     <!--// Bars Css -->
     <!-- Calender Css -->
-    <link rel="stylesheet" type="text/css" href="css/pignose.calender.css" />
+    <link rel="stylesheet" type="text/css" href="/css/pignose.calender.css" />
     <!--// Calender Css -->
     <!-- Common Css -->
-    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <!--// Common Css -->
     <!-- Nav Css -->
-    <link rel="stylesheet" href="css/style4.css">
+    <link rel="stylesheet" href="/css/style4.css">
     <!--// Nav Css -->
     <!-- Fontawesome Css -->
-    <link href="css/fontawesome-all.css" rel="stylesheet">
+    <link href="/css/fontawesome-all.css" rel="stylesheet">
     <!--// Fontawesome Css -->
     <!--// Style-sheets -->
 
@@ -278,11 +278,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
     <!-- Required common Js -->
-    <script src='js/jquery-2.2.3.min.js'></script>
+    <script src='/js/jquery-2.2.3.min.js'></script>
     <!-- //Required common Js -->
 
     <!-- loading-gif Js -->
-    <script src="js/modernizr.js"></script>
+    <script src="/js/modernizr.js"></script>
     <script>
         //paste this code under head tag or in a seperate js file.
         // Wait for window load
@@ -321,7 +321,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- //dropdown nav -->
 
     <!-- Js for bootstrap working-->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <!-- //Js for bootstrap working -->
 
 </body>

@@ -13,20 +13,14 @@
                     <th scope="col">Phone</th>
                 </tr>
             </thead>
+            @foreach ($tutors as $tutor)
             <tbody>
-                @foreach ($tutors as $tutor)
-                    <th scope="row">{{ $tutor->id }}</th>
-                    <td>{{ $tutor->tutor_name }}</td>
-                    <td>{{ $tutor->tutor_email }}</td>
-                    <td>{{ $tutor->tutor_phone }}</td>
-                @endforeach
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
+                <th scope="row">{{ $tutor->id }}</th>
+                <td>{{ $tutor->tutor_name }}</td>
+                <td>{{ $tutor->tutor_email }}</td>
+                <td>{{ $tutor->tutor_phone }}</td>
             </tbody>
+            @endforeach
         </table>
     </div>
     <!--// table1 -->
