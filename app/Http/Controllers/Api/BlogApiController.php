@@ -16,6 +16,8 @@ class BlogApiController extends Controller
     public function index()
     {
         $blog = Blog::all();
+
+        return response()->json($blog);
     }
 
     /**
@@ -24,9 +26,36 @@ class BlogApiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function saveStudentBlog(Request $request)
     {
-        //
+        $request->validate([
+            'student_ID' => 'required',
+            'blog_title' => 'required',
+            'blog_content' => 'required'
+        ]);
+
+        $blog = Blog::create($request->all());
+
+        return response()->json([
+            'message' => 'New Student blog added',
+            'blog' => $blog
+        ]);
+    }
+
+    public function saveTutorBlog(Request $request)
+    {
+        $request->validate([
+            'tutor_ID' => 'required',
+            'blog_title' => 'required',
+            'blog_content' => 'required'
+        ]);
+
+        $blog = Blog::create($request->all());
+
+        return response()->json([
+            'message' => 'New Tutor blog added',
+            'blog' => $blog
+        ]);
     }
 
     /**
@@ -35,9 +64,22 @@ class BlogApiController extends Controller
      * @param  \App\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function show(Blog $blog)
+    public function showStudentBlog()
     {
-        //
+        $studentId = request('student_ID');
+
+        $blog = Blog::where('student_ID', $studentId)->get();
+
+        return json($blog);
+    }
+
+    public function showTutorBlog()
+    {
+        $studentId = request('tutor_ID');
+
+        $blog = Blog::where('tutor_ID', $studentId)->get();
+
+        return json($blog);
     }
 
     /**
@@ -58,8 +100,14 @@ class BlogApiController extends Controller
      * @param  \App\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Blog $blog)
+    public function destroy()
     {
-        //
+        $id = request('blog_ID');
+
+        Blog::where('id', $id)->delete();
+
+        return response()->json([
+            'message' => 'Successfully delete Blog'
+        ]);
     }
 }

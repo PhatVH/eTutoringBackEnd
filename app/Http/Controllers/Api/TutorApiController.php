@@ -53,6 +53,15 @@ class TutorApiController extends Controller
         return $tutor;
     }
 
+    public function findTutorByName()
+    {
+        $name = request('tutor_name');
+
+        $tutor = Tutor::where('tutor_name', 'ilike', '%' . $name . '%')->get();
+
+        return response()->json($tutor);
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -88,6 +97,6 @@ class TutorApiController extends Controller
 
         return response()-json([
             'message' => 'Successfully delete Tutor'
-        ])
+        ]);
     }
 }

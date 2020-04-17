@@ -8,58 +8,27 @@ use App\Http\Controllers\Controller;
 
 class MessageApiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function showMessage()
     {
-        //
+        $student = request('student_ID');
+        $tutor = request('tutor_ID');
+
+        $mess = Message::where([
+            'tutor_ID' => $tutor,
+            'student_ID' => $student
+        ])->latest()->get();
+
+        return response()->json($mess);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function writeMessage(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'tutor_ID' => 'required',
+            'student_ID' => 'required',
+            'message_content' => 'required'
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Message  $message
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Message $message)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Message  $message
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Message $message)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Message  $message
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Message $message)
-    {
-        //
+        Message::create($request->all());
     }
 }

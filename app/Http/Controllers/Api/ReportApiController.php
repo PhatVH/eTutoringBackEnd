@@ -15,7 +15,9 @@ class ReportApiController extends Controller
      */
     public function index()
     {
-        //
+        $report = Report::all();
+
+        return response()->json($report);
     }
 
     /**
@@ -26,7 +28,18 @@ class ReportApiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'student_ID' => 'required',
+            'report_title' => 'required',
+            'report_description' => 'required'
+        ]);
+
+        $report = Report::create($request->all());
+
+        return response()->json([
+            'message' => 'Report created',
+            'report' => $report
+        ]);
     }
 
     /**

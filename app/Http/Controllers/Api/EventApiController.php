@@ -15,7 +15,9 @@ class EventApiController extends Controller
      */
     public function index()
     {
-        //
+        $events = event::all();
+
+        return response()->json($events);
     }
 
     /**
@@ -26,7 +28,18 @@ class EventApiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'event_title' => 'required',
+            'event_description' => 'required',
+            'event_date_start' => 'required'
+        ]);
+
+        $event = event::create($request->all());
+
+        return response()->json([
+            'message' => 'Event created',
+            'event' => $event
+        ]);
     }
 
     /**
@@ -35,9 +48,13 @@ class EventApiController extends Controller
      * @param  \App\event  $event
      * @return \Illuminate\Http\Response
      */
-    public function show(event $event)
+    public function show()
     {
-        //
+        $id = request('id');
+
+        $event = event::where('id', $id)->get();
+
+        return $event;
     }
 
     /**
@@ -60,6 +77,12 @@ class EventApiController extends Controller
      */
     public function destroy(event $event)
     {
-        //
+        $id = request('id');
+
+        event::where('id', $id)->delete();
+
+        return response()->json([
+            'message' => 'Successfully delete event'
+        ]);
     }
 }

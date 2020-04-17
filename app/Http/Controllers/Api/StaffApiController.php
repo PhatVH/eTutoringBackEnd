@@ -15,7 +15,9 @@ class StaffApiController extends Controller
      */
     public function index()
     {
-        //
+        $staff = Staff::all();
+
+        return response()->json($staff);
     }
 
     /**
@@ -26,7 +28,18 @@ class StaffApiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'authorisedStaff_name' => 'required',
+            'authorisedStaff_email' => 'required',
+            'authorisedStaff_phone' => 'required'
+        ]);
+
+        $staff = Staff::create($request->all());
+
+        return response()->json([
+            'message' => 'Staff created!',
+            'staff' => $staff
+        ]);
     }
 
     /**
@@ -35,9 +48,11 @@ class StaffApiController extends Controller
      * @param  \App\Staff  $staff
      * @return \Illuminate\Http\Response
      */
-    public function show(Staff $staff)
+    public function show()
     {
-        //
+        $staff = Staff::where('id', request('id'))->get();
+
+        return $staff;
     }
 
     /**
@@ -58,8 +73,12 @@ class StaffApiController extends Controller
      * @param  \App\Staff  $staff
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Staff $staff)
+    public function destroy()
     {
-        //
+        Staff::where('id', response('id'))->delete();
+
+        return response()->json([
+            'message' => 'Delete staff successful'
+        ]);
     }
 }

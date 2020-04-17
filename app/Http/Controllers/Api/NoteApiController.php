@@ -15,7 +15,9 @@ class NoteApiController extends Controller
      */
     public function index()
     {
-        //
+        $notes = Note::all();
+
+        return response()->json($notes);
     }
 
     /**
@@ -24,9 +26,34 @@ class NoteApiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function addStudentNote(Request $request)
     {
-        //
+        $request->validate([
+            'student_ID' => 'required',
+            'note_content' => 'required'
+        ]);
+
+        $note = Note::create($request->all());
+
+        return response()->json([
+            'message' => 'Add student note successful',
+            'note' => $note
+        ]);
+    }
+
+    public function addTutorNote(Request $request)
+    {
+        $request->validate([
+            'note_content' => 'required',
+            'tutor_ID' => 'required'
+        ]);
+
+        $note = Note::create($request->all());
+
+        return response()->json([
+            'message' => 'Add tutor note successful',
+            'note' => $note
+        ]);
     }
 
     /**
@@ -35,9 +62,23 @@ class NoteApiController extends Controller
      * @param  \App\Note  $note
      * @return \Illuminate\Http\Response
      */
-    public function show(Note $note)
+    public function show()
     {
-        //
+        return Note::where('id', Request('id'))->get();
+    }
+
+    public function showStudentNotes()
+    {
+        $note = Note::where('student_ID', request('student_ID'))->get();
+
+        return response()->json($note);
+    }
+
+    public function showTutorNotes()
+    {
+        $note = Note::where('tutor_ID', request('tutor_ID'))->get();
+
+        return response()->json($note);
     }
 
     /**
@@ -60,6 +101,10 @@ class NoteApiController extends Controller
      */
     public function destroy(Note $note)
     {
-        //
+        Note::where('id', request('id'))->delete();
+
+        return response()->json([
+            'message' => 'Delete note successful'
+        ]);
     }
 }

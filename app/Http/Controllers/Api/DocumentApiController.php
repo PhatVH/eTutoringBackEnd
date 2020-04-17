@@ -15,7 +15,14 @@ class DocumentApiController extends Controller
      */
     public function index()
     {
-        //
+        $document = Document::all([
+            'id',
+            'student_ID',
+            'tutor_ID',
+            'document_name'
+        ]);
+
+        return response()->json($document);
     }
 
     /**
@@ -24,9 +31,34 @@ class DocumentApiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function saveTutorDocument(Request $request)
     {
-        //
+        $request->validate([
+            'tutor_ID' => 'required',
+            'document_name' => 'required'
+        ]);
+
+        $document = Document::create($request->all());
+
+        return response()->json([
+            'message' => 'New Tutor document added',
+            'document' => $document
+        ]);
+    }
+
+    public function saveStudentDocument(Request $request)
+    {
+        $request->validate([
+            'student_ID' => 'required',
+            'document_name' => 'required'
+        ]);
+
+        $document = Document::create($request->all());
+
+        return response()->json([
+            'message' => 'New Student document added',
+            'document' => $document
+        ]);
     }
 
     /**
@@ -35,9 +67,13 @@ class DocumentApiController extends Controller
      * @param  \App\Document  $document
      * @return \Illuminate\Http\Response
      */
-    public function show(Document $document)
+    public function show()
     {
-        //
+        $id = request('id');
+
+        $document = Document::where('id', $id)->get();
+
+        return $document;
     }
 
     /**
@@ -58,8 +94,14 @@ class DocumentApiController extends Controller
      * @param  \App\Document  $document
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Document $document)
+    public function destroy()
     {
-        //
+        $id = request('id');
+
+        Document::where('id', $id)->delete();
+
+        return response()->json([
+            'message' => 'Delete successful'
+        ]);
     }
 }

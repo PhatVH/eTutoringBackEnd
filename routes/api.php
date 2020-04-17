@@ -22,62 +22,71 @@ Route::namespace('Api')->group(function () {
 
     //Blog API Routes
     Route::get('/blog', 'BlogApiController@index');
-    Route::post('/blog', 'BlogApiController@store');
-    Route::get('/blog/{document', 'BlogApiController@show');
-    Route::put('/blog/{document', 'BlogApiController@update');
-    Route::delete('/blog/{document', 'BlogApiController@destroy');
+    Route::post('/saveStudentBlog', 'BlogApiController@saveStudentBlog');
+    Route::post('/saveTutorBlog', 'BlogApiController@saveTutorBlog');
+    Route::get('/showStudentBlog', 'BlogApiController@showStudentBlog');
+    Route::get('/showTutorBlog', 'BlogApiController@showTutorBlog');
+    Route::put('/blog/{document}', 'BlogApiController@update');
+    Route::delete('/deleteBlog', 'BlogApiController@destroy');
 
     //Document API Routes
     Route::get('/document', 'DocumentApiController@index');
     Route::post('/document', 'DocumentApiController@store');
-    Route::get('/document/{document}', 'DocumentApiController@show');
+    Route::get('/getDocument', 'DocumentApiController@show');
     Route::put('/document/{document}', 'DocumentApiController@update');
     Route::delete('/document/{document}', 'DocumentApiController@destroy');
 
     //Event API Routes
-    Route::get('/event', 'EventApiController@index');
-    Route::post('/event', 'EventApiController@store');
-    Route::get('/event/{event}', 'EventApiController@show');
+    Route::get('/getAllEvents', 'EventApiController@index');
+    Route::post('/addNewEvent', 'EventApiController@store');
+    Route::get('/getEvents', 'EventApiController@show');
     Route::put('/event/{event}', 'EventApiController@update');
-    Route::delete('/event/{event}', 'EventApiController@destroy');
+    Route::delete('/deleteEvent', 'EventApiController@destroy');
 
     //Message API Routes
-    Route::get('/message', 'MessageApiController@index');
-    Route::post('/message', 'MessageApiController@store');
-    Route::get('/message/{message}', 'MessageApiController@show');
-    Route::put('/message/{message}', 'MessageApiController@update');
-    Route::delete('/message/{message}', 'MessageApiController@destroy');
+    // Route::get('/message', 'MessageApiController@index');
+    // Route::post('/message', 'MessageApiController@store');
+    // Route::get('/message/{message}', 'MessageApiController@show');
+    // Route::put('/message/{message}', 'MessageApiController@update');
+    // Route::delete('/message/{message}', 'MessageApiController@destroy');
+    Route::get('/showMessage', 'MessageApiController@showMessage');
+    Route::post('/writeMessage', 'MessageApiController@writeMessage');
 
     //Note API Routes
-    Route::get('/note', 'NoteApiController@index');
-    Route::post('/note', 'NoteApiController@store');
-    Route::get('/note/{note}', 'NoteApiController@show');
+    Route::get('/getAllNotes', 'NoteApiController@index');
+    Route::post('/addStudentNote', 'NoteApiController@addStudentNote');
+    Route::post('/addTutorNote', 'NoteApiController@addTutorNote');
+    Route::get('/showStudentNotes', 'NoteApiController@showStudentNotes');
+    Route::get('/showTutorNotes', 'NoteApiController@showTutorNotes');
     Route::put('/note/{note}', 'NoteApiController@update');
-    Route::delete('/note/{note}', 'NoteApiController@destroy');
+    Route::delete('/deleteNote', 'NoteApiController@destroy');
 
     //Report API Routes
-    Route::get('/report', 'ReportApiController@index');
+    Route::get('/getReport', 'ReportApiController@index');
     Route::post('/report', 'ReportApiController@store');
-    Route::get('/report/{report}', 'ReportApiController@show');
+    Route::get('/createReport', 'ReportApiController@show');
     Route::put('/report/{report}', 'ReportApiController@update');
     Route::delete('/report/{report}', 'ReportApiController@destroy');
 
     //Staff API Routes
-    Route::get('/staff', 'StaffApiController@index');
-    Route::post('/staff', 'StaffApiController@store');
-    Route::get('/staff/{staff}', 'StaffApiController@show');
+    Route::get('/getAllStaff', 'StaffApiController@index');
+    Route::post('/addStaff', 'StaffApiController@store');
+    Route::get('/getStaff', 'StaffApiController@show');
     Route::put('/staff/{staff}', 'StaffApiController@update');
-    Route::delete('/staff/{staff}', 'StaffApiController@destroy');
+    Route::delete('/deleteStaff', 'StaffApiController@destroy');
 
     //Student API Routes
-    Route::get('/student', 'StudentApiController@index');
-    Route::post('/student', 'StudentApiController@store');
-    Route::get('/student/{student}', 'StudentApiController@show');
+    Route::get('/getAllStudents', 'StudentApiController@index');
+    Route::post('/createNewStudent', 'StudentApiController@store');
+    Route::post('/setTutorToStudent', 'StudentApiController@setPersonalTutor');
+    Route::get('/getStudent', 'StudentApiController@show');
+    Route::get('/findStudentByName', 'StudentApiController@findStudentByName');
     Route::put('/student/{student}', 'StudentApiController@update');
     Route::delete('/student/{student}', 'StudentApiController@destroy');
 
     //Tutor API Routes
     Route::get('/getAllTutor', 'TutorApiController@index');
+    Route::get('/getTutorByName', 'TutorApiController@findTutorByName');
     Route::post('/tutor', 'TutorApiController@store');
     Route::get('/findTutor', 'TutorApiController@show');
     Route::put('/tutor/{tutor}', 'TutorApiController@update');
