@@ -70,7 +70,9 @@ class BlogApiController extends Controller
 
         $blog = Blog::where('student_ID', $studentId)->get();
 
-        return json($blog);
+        return json([
+            'blogs' => $blog
+        ]);
     }
 
     public function showTutorBlog()
@@ -79,7 +81,9 @@ class BlogApiController extends Controller
 
         $blog = Blog::where('tutor_ID', $studentId)->get();
 
-        return json($blog);
+        return json([
+            'blogs' => $blog
+        ]);
     }
 
     /**

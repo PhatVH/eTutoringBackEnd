@@ -15,9 +15,17 @@ class StudentApiController extends Controller
      */
     public function index()
     {
-        $student = Student::all();
+        $student = Student::all([
+            'id',
+            'student_name',
+            'student_email',
+            'student_phone',
+            'tutor_ID'
+        ]);
 
-        return response()->json($student);
+        return response()->json([
+            'students' => $student
+        ]);
     }
 
     /**
@@ -67,9 +75,16 @@ class StudentApiController extends Controller
 
     public function findStudentByName()
     {
-        $students = Student::where('student_name', 'ilike', '%' . request('name') . '$')->get();
+        $students = Student::where('student_name', 'ilike', '%' . request('name') . '$')->get([
+            'id',
+            'student_name',
+            'student_email',
+            'student_phone'
+        ]);
 
-        return response()->json($students);
+        return response()->json([
+            'sutdents' => $students
+        ]);
     }
 
     /**
@@ -88,7 +103,11 @@ class StudentApiController extends Controller
             'student_email' => 'nullable'
         ]);
 
-        $student = Student::where('id', request('id'))->update($request->all());
+        $student = Student::where('id', request('id'))->update([
+            'student_name' => $request->input('student_name'),
+            'student_phone' => $request->input('student_phone'),
+            'student_email' => $request->input('student_email')
+        ]);
 
         return response()->json([
             'message' => 'Successfully update student',

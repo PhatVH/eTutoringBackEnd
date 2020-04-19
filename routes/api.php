@@ -24,8 +24,8 @@ Route::namespace('Api')->group(function () {
     Route::get('/blog', 'BlogApiController@index');
     Route::post('/saveStudentBlog', 'BlogApiController@saveStudentBlog');
     Route::post('/saveTutorBlog', 'BlogApiController@saveTutorBlog');
-    Route::get('/showStudentBlog', 'BlogApiController@showStudentBlog');
-    Route::get('/showTutorBlog', 'BlogApiController@showTutorBlog');
+    Route::get('/showStudentBlogs', 'BlogApiController@showStudentBlog');
+    Route::get('/showTutorBlogs', 'BlogApiController@showTutorBlog');
     Route::put('/blog/{document}', 'BlogApiController@update');
     Route::delete('/deleteBlog', 'BlogApiController@destroy');
 
@@ -77,18 +77,18 @@ Route::namespace('Api')->group(function () {
 
     //Student API Routes
     Route::get('/getAllStudents', 'StudentApiController@index');
-    Route::post('/createNewStudent', 'StudentApiController@store');
+    Route::post('/addStudent', 'StudentApiController@store');
     Route::post('/setTutorToStudent', 'StudentApiController@setPersonalTutor');
     Route::get('/getStudent', 'StudentApiController@show');
     Route::get('/findStudentByName', 'StudentApiController@findStudentByName');
-    Route::put('/student/{student}', 'StudentApiController@update');
-    Route::delete('/student/{student}', 'StudentApiController@destroy');
+    Route::post('/updateStudentInfo', 'StudentApiController@update');
+    Route::post('/deleteStudent', 'StudentApiController@destroy');
 
     //Tutor API Routes
-    Route::get('/getAllTutor', 'TutorApiController@index');
-    Route::get('/getTutorByName', 'TutorApiController@findTutorByName');
-    Route::post('/tutor', 'TutorApiController@store');
-    Route::get('/findTutor', 'TutorApiController@show');
-    Route::put('/tutor/{tutor}', 'TutorApiController@update');
-    Route::delete('/tutor/{tutor}', 'TutorApiController@destroy');
+    Route::get('/getAllTutor', 'TutorApiController@index'); //View all
+    Route::post('/addTutor', 'TutorApiController@store'); //Add
+    Route::get('/getTutor', 'TutorApiController@show'); //Get 1
+    Route::get('/findTutorByName', 'TutorApiController@findTutorByName');
+    Route::post('/updateTutor', 'TutorApiController@update');
+    Route::post('/deleteTutor', 'TutorApiController@destroy');
 });
