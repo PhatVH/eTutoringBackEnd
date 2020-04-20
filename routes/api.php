@@ -112,4 +112,6 @@ Route::namespace('Api')->group(function () {
     Route::get('/getAllMeetings', 'MeetingApiController@index');
     Route::post('/createMeeting', 'MeetingApiController@store');
     Route::get('/getMeeting', 'MeetingApiController@show');
+    Route::get('/getMeetingByHost', 'MeetingApiController@showByHost');
+    Route::get('/getMeetingByInvite', 'MeetingApiController@showByInvite');
 });

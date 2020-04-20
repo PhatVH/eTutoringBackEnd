@@ -62,6 +62,28 @@ class MeetingApiController extends Controller
         return response()->json($meeting);
     }
 
+    public function showByHost(Request $request)
+    {
+        $request->validate([
+            'id' => 'required'
+        ]);
+
+        $meeting = Meeting::where('host', $request['id']);
+
+        return response()->json($meeting);
+    }
+
+    public function showByInvite(Request $request)
+    {
+        $request->validate([
+            'id' => 'required'
+        ]);
+
+        $meeting = Meeting::where('invite', $request['id']);
+
+        return response()->json($meeting);
+    }
+
     /**
      * Update the specified resource in storage.
      *
