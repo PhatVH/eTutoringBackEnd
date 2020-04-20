@@ -114,4 +114,5 @@ Route::namespace('Api')->group(function () {
     Route::get('/getMeeting', 'MeetingApiController@show');
     Route::get('/getMeetingByHost', 'MeetingApiController@showByHost');
     Route::get('/getMeetingByInvite', 'MeetingApiController@showByInvite');
+    Route::post('/deleteMeeting', 'MeetingApiController@destroy');
 });

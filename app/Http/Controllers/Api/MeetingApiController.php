@@ -24,7 +24,9 @@ class MeetingApiController extends Controller
             'invite'
         ]);
 
-        return response()->json($meetings);
+        return response()->json([
+            'schedule' => $meetings
+        ]);
     }
 
     /**
@@ -66,7 +68,9 @@ class MeetingApiController extends Controller
 
         $meeting = Meeting::where('id', $request['id']);
 
-        return response()->json($meeting);
+        return response()->json([
+            'schedule' => $meeting
+        ]);
     }
 
     public function showByHost(Request $request)
@@ -75,9 +79,11 @@ class MeetingApiController extends Controller
             'id' => 'required'
         ]);
 
-        $meeting = Meeting::where('host', $request['id']);
+        $meetings = Meeting::where('host', $request['id']);
 
-        return response()->json($meeting);
+        return response()->json([
+            'schedule' => $meetings
+        ]);
     }
 
     public function showByInvite(Request $request)
@@ -86,9 +92,11 @@ class MeetingApiController extends Controller
             'id' => 'required'
         ]);
 
-        $meeting = Meeting::where('invite', $request['id']);
+        $meetings = Meeting::where('invite', $request['id']);
 
-        return response()->json($meeting);
+        return response()->json([
+            'schedule' => $meetings
+        ]);
     }
 
     /**
@@ -109,8 +117,12 @@ class MeetingApiController extends Controller
      * @param  \App\Meeting  $meeting
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Meeting $meeting)
+    public function destroy()
     {
-        //
+        Meeting::where('id', request('id'))->delete();
+
+        return response()->json([
+            'message' => 'Delete successful'
+        ]);
     }
 }
