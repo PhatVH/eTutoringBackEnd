@@ -22,9 +22,7 @@ class TutorApiController extends Controller
             'tutor_email'
         ]);
 
-        return response()->json([
-            "tutors" => $tutors
-        ]);
+        return response()->json($tutors);
     }
 
     /**
@@ -41,7 +39,7 @@ class TutorApiController extends Controller
             'tutor_email' => 'required'
         ]);
 
-        $tutor = Tutor::create($request->all());
+        $tutor = Tutor::create($request->all())->id;
 
         return response()->json([
             'message' => 'Tutor added',

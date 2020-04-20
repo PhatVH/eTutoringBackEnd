@@ -9,6 +9,7 @@ class Tutor extends Model
     protected $fillable = [
         'tutor_name',
         'tutor_phone',
-        'tutor_email'
+        'tutor_email',
+        'user_ID'
     ];
 }

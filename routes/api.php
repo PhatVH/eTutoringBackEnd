@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\BlogController;
+use App\Http\Controllers\Api\MeetingApiController;
 use Illuminate\Http\Request;
 
 /*
@@ -16,6 +17,19 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group(['middleware' => ['json.response']], function () {
+
+    // public routes
+    Route::post('/login', 'Api\AuthController@login')->name('login.api');
+    Route::post('/register', 'Api\AuthController@register')->name('register.api');
+
+    // private routes
+    Route::middleware('auth:api')->group(function () {
+        Route::get('/logout', 'Api\AuthController@logout')->name('logout');
+    });
+
 });
 
 Route::namespace('Api')->group(function () {
@@ -83,6 +97,8 @@ Route::namespace('Api')->group(function () {
     Route::get('/findStudentByName', 'StudentApiController@findStudentByName');
     Route::post('/updateStudentInfo', 'StudentApiController@update');
     Route::post('/deleteStudent', 'StudentApiController@destroy');
+    Route::get('/studentsWithNoInteraction', 'StudentApiController@studentsWithNoInteraction');
+    Route::get('/studentsWithoutTutor', 'StudentApiController@studentsWithoutTutor');
 
     //Tutor API Routes
     Route::get('/getAllTutor', 'TutorApiController@index'); //View all
@@ -91,4 +107,9 @@ Route::namespace('Api')->group(function () {
     Route::get('/findTutorByName', 'TutorApiController@findTutorByName');
     Route::post('/updateTutor', 'TutorApiController@update');
     Route::post('/deleteTutor', 'TutorApiController@destroy');
+
+    //Meeting API Routes
+    Route::get('/getAllMeetings', 'MeetingApiController@index');
+    Route::post('/createMeeting', 'MeetingApiController@store');
+    Route::get('/getMeeting', 'MeetingApiController@show');
 });

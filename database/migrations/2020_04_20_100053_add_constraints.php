@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddConstraint extends Migration
+class AddConstraints extends Migration
 {
     /**
      * Run the migrations.
@@ -16,12 +16,17 @@ class AddConstraint extends Migration
         //Add constraints to tables
 
         Schema::table('students', function (Blueprint $table) {
+            $table->foreign('user_ID')->references('id')->on('users');
             $table->foreign('tutor_ID')->references('id')->on('tutors');
         });
 
-        // Schema::table('Tutor', function (Blueprint $table) {
-        //     $table->foreign('document_ID')->references('document_ID')->on('Document')->onDelete('cascade');
-        // });
+        Schema::table('tutors', function (Blueprint $table) {
+            $table->foreign('user_ID')->references('id')->on('users');
+        });
+
+        Schema::table('staff', function (Blueprint $table) {
+            $table->foreign('user_ID')->references('id')->on('users');
+        });
 
         Schema::table('documents', function (Blueprint $table) {
             $table->foreign('student_ID')->references('id')->on('students')->onDelete('cascade');
@@ -45,6 +50,11 @@ class AddConstraint extends Migration
         Schema::table('blogs', function (Blueprint $table) {
             $table->foreign('student_ID')->references('id')->on('students');
             $table->foreign('tutor_ID')->references('id')->on('tutors');
+        });
+
+        Schema::table('meetings', function (Blueprint $table) {
+            $table->foreign('host')->references('id')->on('users');
+            $table->foreign('invite')->references('id')->on('users');
         });
     }
 

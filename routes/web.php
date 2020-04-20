@@ -28,3 +28,7 @@ Route::get('/tutors/{tutor}/edit', 'TutorController@edit');
 Route::put('/tutors/{tutor}', 'TutorController@update');
 Route::delete('/tutors/{tutor}', 'TutorController@destroy');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

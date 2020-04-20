@@ -15,9 +15,10 @@ class CreateStaffTable extends Migration
     {
         Schema::create('staff', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('authorisedStaff_name', 100);
-            $table->string('authorisedStaff_email', 100);
-            $table->string('authorisedStaff_phone', 20);
+            $table->unsignedBigInteger('user_ID');
+            $table->string('staff_name', 100);
+            $table->string('staff_email', 100);
+            $table->string('staff_phone', 20);
             $table->timestamps();
         });
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Student;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class StudentApiController extends Controller
 {
@@ -113,6 +114,21 @@ class StudentApiController extends Controller
             'message' => 'Successfully update student',
             'student' => $student
         ]);
+    }
+
+    public function studentsWithNoInteraction(Request $request)
+    {
+        $loginDate = Carbon::now()->subDays(7);
+        $students = Student::whereDate('lastLoggedIn', '>', $loginDate)->get();
+
+        return response()->json($students);
+    }
+
+    public function studentsWithoutTutor(Request $request)
+    {
+        $students = Student::whereNull('tutor_ID')->get();
+
+        return response()->json($students);
     }
 
     /**
