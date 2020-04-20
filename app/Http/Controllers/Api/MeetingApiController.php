@@ -15,7 +15,14 @@ class MeetingApiController extends Controller
      */
     public function index()
     {
-        $meetings = Meeting::all();
+        $meetings = Meeting::all([
+            'id',
+            'host',
+            'start',
+            'end',
+            'title',
+            'invite'
+        ]);
 
         return response()->json($meetings);
     }
