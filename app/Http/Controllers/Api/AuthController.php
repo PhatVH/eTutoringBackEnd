@@ -107,9 +107,9 @@ class AuthController extends Controller
                         return response()->json([
                             'id' => $student->id,
                             'user_ID' => $userid,
-                            'student_name' => $student->student_name,
-                            'student_email' => $student->student_email,
-                            'student_phone' => $student->student_phone,
+                            'name' => $student->student_name,
+                            'email' => $student->student_email,
+                            'phone' => $student->student_phone,
                             'tutor_ID' => $student->tutor_ID,
                             'lastLoggedIn' => $student->lastLoggedIn,
                             'type' => $user->role
@@ -121,9 +121,9 @@ class AuthController extends Controller
                         return response()->json([
                             'id' => $tutor->id,
                             'user_ID' => $userid,
-                            'tutor_name' => $tutor->tutor_name,
-                            'tutor_email' => $tutor->tutor_email,
-                            'tutor_phone' => $tutor->tutor_phone,
+                            'name' => $tutor->tutor_name,
+                            'email' => $tutor->tutor_email,
+                            'phone' => $tutor->tutor_phone,
                             'type' => $user->role
                         ]);
 
@@ -133,9 +133,9 @@ class AuthController extends Controller
                         return response()->json([
                             'id' => $staff->id,
                             'user_ID' => $userid,
-                            'staff_name' => $staff->staff_name,
-                            'staff_email' => $staff->staff_email,
-                            'staff_phone' => $staff->staff_phone,
+                            'name' => $staff->staff_name,
+                            'email' => $staff->staff_email,
+                            'phone' => $staff->staff_phone,
                             'type' => $user->role
                         ]);
                 }
