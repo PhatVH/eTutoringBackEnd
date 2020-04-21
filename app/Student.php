@@ -12,4 +12,9 @@ class Student extends Model
         'student_phone',
         'user_ID'
     ];
+
+    public function tutors()
+    {
+        return $this->belongsTo(Tutor::class);
+    }
 }

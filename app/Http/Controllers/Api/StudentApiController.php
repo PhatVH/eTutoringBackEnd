@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Student;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Tutor;
 use Carbon\Carbon;
 
 class StudentApiController extends Controller
@@ -17,13 +18,22 @@ class StudentApiController extends Controller
     public function index()
     {
 
-        $students = Student::where('student_name', 'ilike', '%' . request('name_like') . '%')->orderBy('student_name')->get([
+        $students = Student::where('student_name', 'ilike', '%' . request('name_like') . '%')
+            ->orderBy('student_name')
+            ->get([
             'id',
             'student_name as name',
             'student_email as email',
             'student_phone as phone',
             'tutor_ID'
         ]);
+
+        foreach($students as $student){
+            if($student->tutor_ID != ''){
+                $tutorname = Tutor::where('id', $student->tutor_ID)->first();
+                $student->tutor_name = $tutorname['tutor_name'];
+            }
+        }
 
         return response()->json($students);
     }
@@ -52,7 +62,10 @@ class StudentApiController extends Controller
 
     public function setPersonalTutor()
     {
-        $student = Student::where('id', request('id'))->update('tutor_ID', request('tutor_id'));
+
+        $tutorid = request('tutor_id');
+
+        $student = Student::where('id', request('id'))->update(['tutor_ID'=> $tutorid]);
 
         return response()->json([
             'message' => 'Set tutor successful',

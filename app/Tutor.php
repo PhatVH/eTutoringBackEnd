@@ -12,4 +12,8 @@ class Tutor extends Model
         'tutor_email',
         'user_ID'
     ];
+
+    public function students(){
+        return $this->hasMany(Student::class);
+    }
 }
