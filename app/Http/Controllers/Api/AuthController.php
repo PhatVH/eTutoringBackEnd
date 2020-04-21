@@ -104,17 +104,40 @@ class AuthController extends Controller
                             'lastLoggedIn' => now()
                         ]);
 
-                        return response()->json($student);
+                        return response()->json([
+                            'id' => $student->id,
+                            'user_ID' => $userid,
+                            'student_name' => $student->student_name,
+                            'student_email' => $student->student_email,
+                            'student_phone' => $student->student_phone,
+                            'tutor_ID' => $student->tutor_ID,
+                            'lastLoggedIn' => $student->lastLoggedIn,
+                            'type' => $user->role
+                        ]);
 
                     case 'tutor':
                         $tutor = Tutor::where('user_ID', $userid)->first();
 
-                        return response()->json($tutor);
+                        return response()->json([
+                            'id' => $tutor->id,
+                            'user_ID' => $userid,
+                            'tutor_name' => $tutor->tutor_name,
+                            'tutor_email' => $tutor->tutor_email,
+                            'tutor_phone' => $tutor->tutor_phone,
+                            'type' => $user->role
+                        ]);
 
                     case 'staff':
                         $staff = Staff::where('user_ID', $userid)->first();
 
-                        return response()->json($staff);
+                        return response()->json([
+                            'id' => $staff->id,
+                            'user_ID' => $userid,
+                            'staff_name' => $staff->staff_name,
+                            'staff_email' => $staff->staff_email,
+                            'staff_phone' => $staff->staff_phone,
+                            'type' => $user->role
+                        ]);
                 }
             } else {
                 $response = "Password missmatch";
