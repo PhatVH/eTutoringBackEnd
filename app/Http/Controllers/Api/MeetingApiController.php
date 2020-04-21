@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Meeting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
 
 class MeetingApiController extends Controller
 {
@@ -23,6 +24,16 @@ class MeetingApiController extends Controller
             'title',
             'invite'
         ]);
+
+
+        // $meetings = Meeting::orderBy('meetings.id')
+        //     ->join('users as u1', 'meetings.host', '=', 'u1.id')
+        //     ->join('users as u2', 'meetings.invite', '=', 'u2.id')
+        //     ->select([
+        //         'meetings.id',
+        //         'u1.name',
+
+        //     ]);
 
         return response()->json([
             'schedule' => $meetings
@@ -73,18 +84,20 @@ class MeetingApiController extends Controller
         ]);
     }
 
-    public function showByHost(Request $request)
-    {
-        $request->validate([
-            'id' => 'required'
-        ]);
+    // public function showMyMeetings(Request $request)
+    // {
+    //     $request->validate([
+    //         'id' => 'required'
+    //     ]);
 
-        $meetings = Meeting::where('host', $request['id']);
+    //     $role = User::where('id', )
 
-        return response()->json([
-            'schedule' => $meetings
-        ]);
-    }
+    //     // $meetings = Meeting::where('host', $request['id']);
+
+    //     return response()->json([
+    //         'schedule' => $meetings
+    //     ]);
+    // }
 
     public function showByInvite(Request $request)
     {
