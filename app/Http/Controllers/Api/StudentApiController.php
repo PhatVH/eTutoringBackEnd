@@ -16,15 +16,16 @@ class StudentApiController extends Controller
      */
     public function index()
     {
-        $student = Student::all([
+
+        $students = Student::where('student_name', 'ilike', '%' . request('name_like') . '%')->orderBy('student_name')->get([
             'id',
-            'student_name',
-            'student_email',
-            'student_phone',
+            'student_name as name',
+            'student_email as email',
+            'student_phone as phone',
             'tutor_ID'
         ]);
 
-        return response()->json($student);
+        return response()->json($students);
     }
 
     /**

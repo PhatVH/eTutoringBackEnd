@@ -24,11 +24,11 @@ class TutorApiController extends Controller
             'tutor_email as email'
         ]);
 
-        foreach($tutors as $tutor){
-            $n = 1;
-            $tutor->testing = $n;
-            $n++;
-        }
+        // foreach($tutors as $tutor){
+        //     $n = 1;
+        //     $tutor->testing = $n;
+        //     $n++;
+        // }
 
         return response()->json($tutors);
     }
