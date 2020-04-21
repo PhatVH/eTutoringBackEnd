@@ -129,14 +129,25 @@ class StudentApiController extends Controller
     public function studentsWithNoInteraction(Request $request)
     {
         $loginDate = Carbon::now()->subDays(7);
-        $students = Student::whereDate('lastLoggedIn', '>', $loginDate)->get();
+        $students = Student::whereDate('lastLoggedIn', '>', $loginDate)->get([
+            'id',
+            'student_name as name',
+            'student_email as email',
+            'student_phone as phone',
+            'tutor_ID'
+        ]);
 
         return response()->json($students);
     }
 
     public function studentsWithoutTutor(Request $request)
     {
-        $students = Student::whereNull('tutor_ID')->get();
+        $students = Student::whereNull('tutor_ID')->get([
+            'id',
+            'student_name as name',
+            'student_email as email',
+            'student_phone as phone'
+        ]);
 
         return response()->json($students);
     }

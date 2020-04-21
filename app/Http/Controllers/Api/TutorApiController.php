@@ -64,9 +64,9 @@ class TutorApiController extends Controller
     public function show()
     {
         $tutor = Tutor::where('id', request('id'))->get([
-            'tutor_name',
-            'tutor_phone',
-            'tutor_email'
+            'tutor_name as name',
+            'tutor_phone as phone',
+            'tutor_email as email'
         ]);
 
         return $tutor;
