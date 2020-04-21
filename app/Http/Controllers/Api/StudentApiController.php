@@ -24,9 +24,7 @@ class StudentApiController extends Controller
             'tutor_ID'
         ]);
 
-        return response()->json([
-            'students' => $student
-        ]);
+        return response()->json($student);
     }
 
     /**
@@ -83,9 +81,7 @@ class StudentApiController extends Controller
             'student_phone'
         ]);
 
-        return response()->json([
-            'sutdents' => $students
-        ]);
+        return response()->json($students);
     }
 
     /**
