@@ -120,14 +120,14 @@ class AuthController extends Controller
                 $response = "Password missmatch";
                 return response()->json([
                     'message' => $response
-                ]);
+                ],422);
             }
 
         } else {
             $response = 'User does not exist';
             return response()->json([
                 'message' => $response
-            ]);
+            ],422);
         }
     }
 
