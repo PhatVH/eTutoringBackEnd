@@ -15,8 +15,12 @@ class TutorApiController extends Controller
      */
     public function index()
     {
-        $tutors = Tutor::orderBy('tutor_name')->get([
+
+        $name = request('tutor_name');
+
+        $tutors = Tutor::where('tutor_name', 'ilike', '%' . $name . '%')->orderBy('tutor_name')->get([
             'id',
+            'user_ID',
             'tutor_name',
             'tutor_phone',
             'tutor_email'
