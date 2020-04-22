@@ -93,7 +93,7 @@ class StudentApiController extends Controller
 
         $tutorid = request('tutor_id');
 
-        $students = request('student_id')[0];
+        $students = request('student_id');
 
         foreach($students as $student){
             Student::where('id', $student)->update(['tutor_ID'=> $tutorid]);
