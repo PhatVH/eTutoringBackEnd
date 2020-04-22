@@ -32,26 +32,7 @@ class StudentApiController extends Controller
         }
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-
-        $students = Student::where('student_name', 'ilike', '%' . Request('name_like') . '%')
-            ->orWhere('tutor_ID', Request('tutor_ID'))
-            ->orderBy('student_name')
-            ->get([
-            'id',
-            'user_ID',
-            'student_name as name',
-            'student_email as email',
-            'student_phone as phone',
-            'tutor_ID'
-        ]);
-
+    public function addInfo($students){
         foreach($students as $student){
             if($student->tutor_ID != ''){
                 $tutorname = Tutor::where('id', $student->tutor_ID)->first();
@@ -62,8 +43,84 @@ class StudentApiController extends Controller
             $student->country = $country['country'];
             $student->countryFlag = $this->getCountryFlag($country['country']);
         }
+    }
 
-        return response()->json($students);
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+
+        $name = Request('name_like');
+        $tutorid = Request('tutor_id');
+
+        if($name != '' && $tutorid != ''){
+            $students = Student::where('student_name', 'ilike', '%' . $name . '%')
+                ->where('tutor_ID', $tutorid)
+                ->orderBy('student_name')
+                ->get([
+                'id',
+                'user_ID',
+                'student_name as name',
+                'student_email as email',
+                'student_phone as phone',
+                'tutor_ID'
+            ]);
+
+            $this->addInfo($students);
+
+            return response()->json($students);
+
+        } else if($name = '' && $tutorid != ''){
+            $students = Student::where('tutor_ID', $tutorid)
+                ->orderBy('student_name')
+                ->get([
+                'id',
+                'user_ID',
+                'student_name as name',
+                'student_email as email',
+                'student_phone as phone',
+                'tutor_ID'
+            ]);
+
+            $this->addInfo($students);
+
+            return response()->json($students);
+
+        } else if($name != '' && $tutorid = ''){
+            $students = Student::where('student_name', 'ilike', '%' . $name . '%')
+                ->orderBy('student_name')
+                ->get([
+                'id',
+                'user_ID',
+                'student_name as name',
+                'student_email as email',
+                'student_phone as phone',
+                'tutor_ID'
+            ]);
+
+            $this->addInfo($students);
+
+            return response()->json($students);
+
+        } else{
+            $students = Student::orderBy('student_name')
+            ->get([
+            'id',
+            'user_ID',
+            'student_name as name',
+            'student_email as email',
+            'student_phone as phone',
+            'tutor_ID'
+            ]);
+
+            $this->addInfo($students);
+
+            return response()->json($students);
+        }
+
     }
 
     /**
@@ -88,7 +145,7 @@ class StudentApiController extends Controller
         ]);
     }
 
-    public function setPersonalTutor()
+    public function setPersonalTutor(Request $request)
     {
 
         $tutorid = request('tutor_id');
@@ -99,9 +156,14 @@ class StudentApiController extends Controller
             Student::where('id', $student)->update(['tutor_ID'=> $tutorid]);
         }
 
-        return response()->json([
-            'message' => 'Set tutor successful'
-        ]);
+        // return response()->json($students);
+
+        return response('success?');
+
+
+        // return response(dd($students))
+        //     ->header('Access-Control-Allow-Origin', '*')
+        //     ->header('Access-Control-Allow-Methods', '*');
     }
 
     /**
@@ -202,6 +264,13 @@ class StudentApiController extends Controller
             'tutor_phone as phone',
             'tutor_email as email'
         ]);
+
+        foreach($tutor as $tut){
+
+            $country = User::where('id', $tut['user_ID'])->first();
+            $tut->country = $country['country'];
+            $tut->countryFlag = $this->getCountryFlag($country['country']);
+        }
 
         return response()->json($tutor);
     }

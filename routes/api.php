@@ -67,29 +67,8 @@ Route::namespace('Api')->group(function () {
     Route::delete('/deleteEvent', 'EventApiController@destroy');
 
     //Message API Routes
-    // Route::get('/message', 'MessageApiController@index');
-    // Route::post('/message', 'MessageApiController@store');
-    // Route::get('/message/{message}', 'MessageApiController@show');
-    // Route::put('/message/{message}', 'MessageApiController@update');
-    // Route::delete('/message/{message}', 'MessageApiController@destroy');
     Route::get('/showMessage', 'MessageApiController@showMessage');
     Route::post('/writeMessage', 'MessageApiController@writeMessage');
-
-    //Note API Routes
-    Route::get('/getAllNotes', 'NoteApiController@index');
-    Route::post('/addStudentNote', 'NoteApiController@addStudentNote');
-    Route::post('/addTutorNote', 'NoteApiController@addTutorNote');
-    Route::get('/showStudentNotes', 'NoteApiController@showStudentNotes');
-    Route::get('/showTutorNotes', 'NoteApiController@showTutorNotes');
-    Route::put('/note/{note}', 'NoteApiController@update');
-    Route::delete('/deleteNote', 'NoteApiController@destroy');
-
-    //Report API Routes
-    Route::get('/getReport', 'ReportApiController@index');
-    Route::post('/report', 'ReportApiController@store');
-    Route::get('/createReport', 'ReportApiController@show');
-    Route::put('/report/{report}', 'ReportApiController@update');
-    Route::delete('/report/{report}', 'ReportApiController@destroy');
 
     //Staff API Routes
     Route::get('/getAllStaff', 'StaffApiController@index');
@@ -105,7 +84,7 @@ Route::namespace('Api')->group(function () {
     Route::post('/deleteStudent', 'StudentApiController@destroy');
     Route::get('/studentsWithNoInteraction', 'StudentApiController@studentsWithNoInteraction');
     Route::get('/studentsWithoutTutor', 'StudentApiController@studentsWithoutTutor');
-    Route::get('/getTutorOfStudent', 'StudentApiController@getTutor');
+    Route::get('/getTutorByStudentId', 'StudentApiController@getTutor');
 
     //Tutor API Routes
     Route::get('/getAllTutor', 'TutorApiController@index'); //View all
