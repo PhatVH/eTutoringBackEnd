@@ -40,8 +40,8 @@ class StudentApiController extends Controller
     public function index()
     {
 
-        $students = Student::where('student_name', 'ilike', '%' . request('name_like') . '%')
-            ->orWhere('tutor_ID', request('tutor_ID'))
+        $students = Student::where('student_name', 'ilike', '%' . Request('name_like') . '%')
+            ->orWhere('tutor_ID', Request('tutor_ID'))
             ->orderBy('student_name')
             ->get([
             'id',
@@ -93,7 +93,7 @@ class StudentApiController extends Controller
 
         $tutorid = request('tutor_id');
 
-        $students = request('student_id');
+        $students = request('student_id')[0];
 
         foreach($students as $student){
             Student::where('id', $student)->update(['tutor_ID'=> $tutorid]);
