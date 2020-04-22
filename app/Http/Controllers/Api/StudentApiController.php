@@ -192,7 +192,7 @@ class StudentApiController extends Controller
     }
 
     public function getTutor(Request $request){
-        $studentid = Student::where('id', request('student_id'))->first();
+        $studentid = Student::where('id', request('student_ID'))->first();
 
         if($studentid['tutor_ID'] != ''){
             $tutor = Tutor::where('id', $studentid['tutor_ID'])->get([
