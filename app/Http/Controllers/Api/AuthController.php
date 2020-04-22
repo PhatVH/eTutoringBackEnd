@@ -14,6 +14,27 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+
+    public function getCountryFlag($country){
+        switch(strtolower($country)){
+            case 'canada':
+                return 'c/cf/Flag_of_Canada.svg';
+                break;
+            case 'russia':
+                return 'f/f3/Flag_of_Russia.svg';
+                break;
+            case 'france':
+                return 'c/c3/Flag_of_France.svg';
+                break;
+            case 'vietnam':
+                return '2/21/Flag_of_Vietnam.svg';
+                break;
+            default:
+                return 'No flag';
+                break;
+        }
+    }
+
     public function register (Request $request) {
 
         $validator = Validator::make($request->all(), [
@@ -22,7 +43,8 @@ class AuthController extends Controller
             'role' => 'required|string',
             'name' => 'required',
             'email' => 'required',
-            'phone' => 'required'
+            'phone' => 'required',
+            'country' => 'required'
         ]);
 
         if ($validator->fails())
@@ -35,7 +57,8 @@ class AuthController extends Controller
         $userid = User::create([
             'username' => $request['username'],
             'password' => $request['password'],
-            'role' => $request['role']
+            'role' => $request['role'],
+            'country' => $request['country']
         ])->id;
 
         switch($request['role']){
@@ -50,6 +73,7 @@ class AuthController extends Controller
                 return response()->json([
                     'message' => 'Register successful',
                 ]);
+                break;
             case 'tutor':
                 $tutor = Tutor::create([
                     'tutor_name' => $request['name'],
@@ -61,6 +85,7 @@ class AuthController extends Controller
                 return response()->json([
                     'message' => 'Register successful',
                 ]);
+                break;
             case 'staff':
                 $staff = Staff::create([
                     'staff_name' => $request['name'],
@@ -72,6 +97,7 @@ class AuthController extends Controller
                 return response()->json([
                     'message' => 'Register successful',
                 ]);
+                break;
             default:
                     return response()->json([
                         'message' => 'Role unavailable'
@@ -97,6 +123,7 @@ class AuthController extends Controller
                 // $token = $user->createToken('Laravel Password Grant Client')->accessToken;
                 $role = $user->role;
                 $userid = $user->id;
+                $countryFlag = $this->getCountryFlag($user->country);
                 switch($role){
                     case 'student':
                         $student = Student::where('user_ID', $userid)->first();
@@ -112,8 +139,11 @@ class AuthController extends Controller
                             'phone' => $student->student_phone,
                             'tutor_ID' => $student->tutor_ID,
                             'lastLoggedIn' => $student->lastLoggedIn,
-                            'type' => $user->role
+                            'type' => $user->role,
+                            'country' => $user->country,
+                            'country-flag' => $countryFlag
                         ]);
+                        break;
 
                     case 'tutor':
                         $tutor = Tutor::where('user_ID', $userid)->first();
@@ -124,8 +154,11 @@ class AuthController extends Controller
                             'name' => $tutor->tutor_name,
                             'email' => $tutor->tutor_email,
                             'phone' => $tutor->tutor_phone,
-                            'type' => $user->role
+                            'type' => $user->role,
+                            'country' => $user->country,
+                            'country-flag' => $countryFlag
                         ]);
+                        break;
 
                     case 'staff':
                         $staff = Staff::where('user_ID', $userid)->first();
@@ -136,8 +169,11 @@ class AuthController extends Controller
                             'name' => $staff->staff_name,
                             'email' => $staff->staff_email,
                             'phone' => $staff->staff_phone,
-                            'type' => $user->role
+                            'type' => $user->role,
+                            'country' => $user->country,
+                            'country-flag' => $countryFlag
                         ]);
+                        break;
                 }
             } else {
                 $response = "Password missmatch";

@@ -6,10 +6,32 @@ use App\Student;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Tutor;
+use App\User;
 use Carbon\Carbon;
 
 class StudentApiController extends Controller
 {
+
+    public function getCountryFlag($country){
+        switch(strtolower($country)){
+            case 'canada':
+                return 'c/cf/Flag_of_Canada.svg';
+                break;
+            case 'russia':
+                return 'f/f3/Flag_of_Russia.svg';
+                break;
+            case 'france':
+                return 'c/c3/Flag_of_France.svg';
+                break;
+            case 'vietnam':
+                return '2/21/Flag_of_Vietnam.svg';
+                break;
+            default:
+                return 'No flag';
+                break;
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,6 +44,7 @@ class StudentApiController extends Controller
             ->orderBy('student_name')
             ->get([
             'id',
+            'user_ID',
             'student_name as name',
             'student_email as email',
             'student_phone as phone',
@@ -33,6 +56,10 @@ class StudentApiController extends Controller
                 $tutorname = Tutor::where('id', $student->tutor_ID)->first();
                 $student->tutor_name = $tutorname['tutor_name'];
             }
+
+            $country = User::where('id', $student->user_ID)->first();
+            $student->country = $country['country'];
+            $student->countryFlag = $this->getCountryFlag($country['country']);
         }
 
         return response()->json($students);

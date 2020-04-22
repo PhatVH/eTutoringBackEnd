@@ -5,9 +5,31 @@ namespace App\Http\Controllers\Api;
 use App\Tutor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
 
 class TutorApiController extends Controller
 {
+
+    public function getCountryFlag($country){
+        switch(strtolower($country)){
+            case 'canada':
+                return 'c/cf/Flag_of_Canada.svg';
+                break;
+            case 'russia':
+                return 'f/f3/Flag_of_Russia.svg';
+                break;
+            case 'france':
+                return 'c/c3/Flag_of_France.svg';
+                break;
+            case 'vietnam':
+                return '2/21/Flag_of_Vietnam.svg';
+                break;
+            default:
+                return 'No flag';
+                break;
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,6 +45,12 @@ class TutorApiController extends Controller
             'tutor_phone as phone',
             'tutor_email as email'
         ]);
+
+        foreach($tutors as $tutor){
+            $country = User::where('id', $tutor->user_ID)->first();
+            $tutor->country = $country['country'];
+            $tutor->countryFlag = $this->getCountryFlag($country['country']);
+        }
 
         // foreach($tutors as $tutor){
         //     $n = 1;
