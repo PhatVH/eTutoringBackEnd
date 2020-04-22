@@ -54,11 +54,8 @@ class StudentApiController extends Controller
     {
 
         $name = Request('name_like');
-        $tutorid = Request('tutor_id');
 
-        if($name != '' && $tutorid != ''){
-            $students = Student::where('student_name', 'ilike', '%' . $name . '%')
-                ->where('tutor_ID', $tutorid)
+        $students = Student::where('student_name', 'ilike', '%' . $name . '%')
                 ->orderBy('student_name')
                 ->get([
                 'id',
@@ -69,12 +66,14 @@ class StudentApiController extends Controller
                 'tutor_ID'
             ]);
 
-            $this->addInfo($students);
+        return response()->json($students);
 
-            return response()->json($students);
+    }
 
-        } else if($name = '' && $tutorid != ''){
-            $students = Student::where('tutor_ID', $tutorid)
+    public function indexByTutor()
+    {
+
+        $students = Student::where('tutor_ID', Request('tutor_ID'))
                 ->orderBy('student_name')
                 ->get([
                 'id',
@@ -85,41 +84,7 @@ class StudentApiController extends Controller
                 'tutor_ID'
             ]);
 
-            $this->addInfo($students);
-
-            return response()->json($students);
-
-        } else if($name != '' && $tutorid = ''){
-            $students = Student::where('student_name', 'ilike', '%' . $name . '%')
-                ->orderBy('student_name')
-                ->get([
-                'id',
-                'user_ID',
-                'student_name as name',
-                'student_email as email',
-                'student_phone as phone',
-                'tutor_ID'
-            ]);
-
-            $this->addInfo($students);
-
-            return response()->json($students);
-
-        } else{
-            $students = Student::orderBy('student_name')
-            ->get([
-            'id',
-            'user_ID',
-            'student_name as name',
-            'student_email as email',
-            'student_phone as phone',
-            'tutor_ID'
-            ]);
-
-            $this->addInfo($students);
-
-            return response()->json($students);
-        }
+        return response()->json($students);
 
     }
 

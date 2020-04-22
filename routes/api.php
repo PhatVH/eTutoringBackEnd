@@ -79,6 +79,7 @@ Route::namespace('Api')->group(function () {
 
     //Student API Routes
     Route::get('/getAllStudents', 'StudentApiController@index');
+    Route::get('/getStudentsByTutorId', 'StudentApiController@indexByTutor');
     Route::post('/setTutorToStudent', 'StudentApiController@setPersonalTutor');
     Route::get('/getStudent', 'StudentApiController@show');
     Route::post('/deleteStudent', 'StudentApiController@destroy');
