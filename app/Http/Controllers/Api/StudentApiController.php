@@ -65,11 +65,14 @@ class StudentApiController extends Controller
 
         $tutorid = request('tutor_id');
 
-        $student = Student::where('id', request('id'))->update(['tutor_ID'=> $tutorid]);
+        $students = request('student_id');
+
+        foreach($students as $student){
+            Student::where('id', $student)->update(['tutor_ID'=> $tutorid]);
+        }
 
         return response()->json([
-            'message' => 'Set tutor successful',
-            'student' => $student
+            'message' => 'Set tutor successful'
         ]);
     }
 
@@ -84,18 +87,6 @@ class StudentApiController extends Controller
         $student = Student::where('id', request('id'))->get();
 
         return $student;
-    }
-
-    public function findStudentByName()
-    {
-        $students = Student::where('student_name', 'ilike', '%' . request('name') . '$')->get([
-            'id',
-            'student_name',
-            'student_email',
-            'student_phone'
-        ]);
-
-        return response()->json($students);
     }
 
     /**
