@@ -100,14 +100,12 @@ Route::namespace('Api')->group(function () {
 
     //Student API Routes
     Route::get('/getAllStudents', 'StudentApiController@index');
-    Route::post('/addStudent', 'StudentApiController@store');
     Route::post('/setTutorToStudent', 'StudentApiController@setPersonalTutor');
     Route::get('/getStudent', 'StudentApiController@show');
-    Route::get('/findStudentByName', 'StudentApiController@findStudentByName');
-    Route::post('/updateStudentInfo', 'StudentApiController@update');
     Route::post('/deleteStudent', 'StudentApiController@destroy');
     Route::get('/studentsWithNoInteraction', 'StudentApiController@studentsWithNoInteraction');
     Route::get('/studentsWithoutTutor', 'StudentApiController@studentsWithoutTutor');
+    Route::get('/getTutorOfStudent', 'StudentApiController@getTutor');
 
     //Tutor API Routes
     Route::get('/getAllTutor', 'TutorApiController@index'); //View all

@@ -191,6 +191,20 @@ class StudentApiController extends Controller
         return response()->json($students);
     }
 
+    public function getTutor(Request $request){
+        $studentid = Student::where('id', request('student_id'))->first();
+
+        $tutor = Tutor::where('id', $studentid['tutor_ID'])->get([
+            'id',
+            'user_ID',
+            'tutor_name as name',
+            'tutor_phone as phone',
+            'tutor_email as email'
+        ]);
+
+        return response()->json($tutor);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
