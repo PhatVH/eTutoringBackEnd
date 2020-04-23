@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Meeting extends Model
 {
     protected $fillable = [
-        'host',
+        'host_ID',
         'start',
         'end',
         'title',
-        'invite'
+        'invite_ID'
     ];
 }

@@ -127,7 +127,9 @@ class StudentApiController extends Controller
             Student::where('id', $student)->update(['tutor_ID'=> $tutorid]);
         }
 
-        return response('Set Tutor successful');
+        return response()->json([
+            'message' => 'Set tutor successful'
+        ]);
     }
 
     /**

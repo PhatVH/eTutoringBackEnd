@@ -5,10 +5,31 @@ namespace App\Http\Controllers\Api;
 use App\Meeting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Student;
+use App\Tutor;
 use App\User;
 
 class MeetingApiController extends Controller
 {
+
+    public function getNameFromId($id){
+        $role = User::where('id', $id)->first();
+
+        switch($role['role']){
+            case 'tutor':
+                $name = Tutor::where('user_ID', $id)->first();
+                return $name['tutor_name'];
+                break;
+            case 'student':
+                $name = Student::where('user_ID', $id)->first();
+                return $name['student_name'];
+                break;
+            default:
+                return 'No name';
+                break;
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,26 +39,19 @@ class MeetingApiController extends Controller
     {
         $meetings = Meeting::all([
             'id',
-            'host',
+            'host_ID',
             'start',
             'end',
             'title',
-            'invite'
+            'invite_ID'
         ]);
 
+        foreach ($meetings as $meeting){
+            $meeting->host = $this->getNameFromId($meeting['host_ID']);
+            $meeting->invite = $this->getNameFromId($meeting['invite_ID']);
+        }
 
-        // $meetings = Meeting::orderBy('meetings.id')
-        //     ->join('users as u1', 'meetings.host', '=', 'u1.id')
-        //     ->join('users as u2', 'meetings.invite', '=', 'u2.id')
-        //     ->select([
-        //         'meetings.id',
-        //         'u1.name',
-
-        //     ]);
-
-        return response()->json([
-            'schedule' => $meetings
-        ]);
+        return response()->json($meetings);
     }
 
     /**
@@ -48,12 +62,12 @@ class MeetingApiController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validation([
-            'host' => 'required',
+        $request->validate([
+            'host_ID' => 'required',
             'start' => 'required',
             'end' => 'required',
             'title' => 'required',
-            'invite' => 'required'
+            'invite_ID' => 'required'
         ]);
 
         $meeting = Meeting::create($request->all());
@@ -77,11 +91,14 @@ class MeetingApiController extends Controller
             'id' => 'required'
         ]);
 
-        $meeting = Meeting::where('id', $request['id']);
+        $meetings = Meeting::where('id', $request['id'])->get();
 
-        return response()->json([
-            'schedule' => $meeting
-        ]);
+        foreach ($meetings as $meeting){
+            $meeting->host = $this->getNameFromId($meeting['host_ID']);
+            $meeting->invite = $this->getNameFromId($meeting['invite_ID']);
+        }
+
+        return response()->json($meetings);
     }
 
     // public function showMyMeetings(Request $request)
@@ -105,7 +122,30 @@ class MeetingApiController extends Controller
             'id' => 'required'
         ]);
 
-        $meetings = Meeting::where('invite', $request['id']);
+        $meetings = Meeting::where('invite_ID', $request['id'])->get();
+
+        foreach ($meetings as $meeting){
+            $meeting->host = $this->getNameFromId($meeting['host_ID']);
+            $meeting->invite = $this->getNameFromId($meeting['invite_ID']);
+        }
+
+        return response()->json([
+            'schedule' => $meetings
+        ]);
+    }
+
+    public function showByHost(Request $request)
+    {
+        $request->validate([
+            'id' => 'required'
+        ]);
+
+        $meetings = Meeting::where('host_ID', $request['id'])->get();
+
+        foreach ($meetings as $meeting){
+            $meeting->host = $this->getNameFromId($meeting['host_ID']);
+            $meeting->invite = $this->getNameFromId($meeting['invite_ID']);
+        }
 
         return response()->json([
             'schedule' => $meetings

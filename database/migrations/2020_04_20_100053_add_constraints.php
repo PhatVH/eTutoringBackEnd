@@ -34,8 +34,8 @@ class AddConstraints extends Migration
         });
 
         Schema::table('meetings', function (Blueprint $table) {
-            $table->foreign('host')->references('id')->on('users');
-            $table->foreign('invite')->references('id')->on('users');
+            $table->foreign('host_ID')->references('id')->on('users');
+            $table->foreign('invite_ID')->references('id')->on('users');
         });
     }
 
