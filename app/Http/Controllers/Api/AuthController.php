@@ -131,6 +131,12 @@ class AuthController extends Controller
                             'lastLoggedIn' => now()
                         ]);
 
+                        $tutorname = '';
+
+                        if($student->tutor_ID != ''){
+                            $tutorname = Tutor::where('id', $student->tutor_ID)->first()->tutor_name;
+                        }
+
                         return response()->json([
                             'id' => $student->id,
                             'user_ID' => $userid,
@@ -138,6 +144,7 @@ class AuthController extends Controller
                             'email' => $student->student_email,
                             'phone' => $student->student_phone,
                             'tutor_ID' => $student->tutor_ID,
+                            'tutor_name' => $tutorname,
                             'lastLoggedIn' => $student->lastLoggedIn,
                             'type' => $user->role,
                             'country' => $user->country,
