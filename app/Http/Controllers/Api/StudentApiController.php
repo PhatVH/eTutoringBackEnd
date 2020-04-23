@@ -66,6 +66,17 @@ class StudentApiController extends Controller
                 'tutor_ID'
             ]);
 
+        foreach($students as $student){
+            if($student->tutor_ID != ''){
+                $tutorname = Tutor::where('id', $student->tutor_ID)->first();
+                $student->tutor_name = $tutorname['tutor_name'];
+            }
+
+            $country = User::where('id', $student->user_ID)->first();
+            $student->country = $country['country'];
+            $student->countryFlag = $this->getCountryFlag($country['country']);
+        }
+
         return response()->json($students);
 
     }
@@ -82,7 +93,18 @@ class StudentApiController extends Controller
                 'student_email as email',
                 'student_phone as phone',
                 'tutor_ID'
-            ]);
+        ]);
+
+        foreach($students as $student){
+            if($student->tutor_ID != ''){
+                $tutorname = Tutor::where('id', $student->tutor_ID)->first();
+                $student->tutor_name = $tutorname['tutor_name'];
+            }
+
+            $country = User::where('id', $student->user_ID)->first();
+            $student->country = $country['country'];
+            $student->countryFlag = $this->getCountryFlag($country['country']);
+        }
 
         return response()->json($students);
 
