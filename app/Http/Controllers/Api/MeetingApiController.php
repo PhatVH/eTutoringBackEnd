@@ -98,6 +98,20 @@ class MeetingApiController extends Controller
         return response()->json($meetings);
     }
 
+    public function showById(Request $request)
+    {
+
+        $meetings = Meeting::where('host_ID', $request['user_id'])
+            ->orWhere('invite_ID', $request['user_id'])->get();
+
+        foreach ($meetings as $meeting){
+            $meeting->host = $this->getNameFromId($meeting['host_ID']);
+            $meeting->invite = $this->getNameFromId($meeting['invite_ID']);
+        }
+
+        return response()->json($meetings);
+    }
+
     // public function showMyMeetings(Request $request)
     // {
     //     $request->validate([

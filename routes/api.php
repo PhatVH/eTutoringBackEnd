@@ -84,6 +84,7 @@ Route::namespace('Api')->group(function () {
 
     //Meeting API Routes
     Route::get('/getAllMeetings', 'MeetingApiController@index');
+    Route::get('/getAllMeetingsByUserId', 'MeetingApiController@showById');
     Route::post('/createMeeting', 'MeetingApiController@store');
     Route::get('/getMeeting', 'MeetingApiController@show');
     Route::get('/getMeetingByHost', 'MeetingApiController@showByHost');
