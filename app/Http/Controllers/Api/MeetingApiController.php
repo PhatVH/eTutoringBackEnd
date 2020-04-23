@@ -129,9 +129,7 @@ class MeetingApiController extends Controller
             $meeting->invite = $this->getNameFromId($meeting['invite_ID']);
         }
 
-        return response()->json([
-            'schedule' => $meetings
-        ]);
+        return response()->json($meetings);
     }
 
     public function showByHost(Request $request)
@@ -147,9 +145,7 @@ class MeetingApiController extends Controller
             $meeting->invite = $this->getNameFromId($meeting['invite_ID']);
         }
 
-        return response()->json([
-            'schedule' => $meetings
-        ]);
+        return response()->json($meetings);
     }
 
     /**
