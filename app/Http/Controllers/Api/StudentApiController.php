@@ -59,6 +59,7 @@ class StudentApiController extends Controller
                 ->orderBy('student_name')
                 ->get([
                 'id',
+                'student_ID',
                 'user_ID',
                 'student_name as name',
                 'student_email as email',
@@ -66,16 +67,7 @@ class StudentApiController extends Controller
                 'tutor_ID'
             ]);
 
-        foreach($students as $student){
-            if($student->tutor_ID != ''){
-                $tutorname = Tutor::where('id', $student->tutor_ID)->first();
-                $student->tutor_name = $tutorname['tutor_name'];
-            }
-
-            $country = User::where('id', $student->user_ID)->first();
-            $student->country = $country['country'];
-            $student->countryFlag = $this->getCountryFlag($country['country']);
-        }
+        $this->addInfo($students);
 
         return response()->json($students);
 
@@ -88,6 +80,7 @@ class StudentApiController extends Controller
                 ->orderBy('student_name')
                 ->get([
                 'id',
+                'student_ID',
                 'user_ID',
                 'student_name as name',
                 'student_email as email',
@@ -95,16 +88,7 @@ class StudentApiController extends Controller
                 'tutor_ID'
         ]);
 
-        foreach($students as $student){
-            if($student->tutor_ID != ''){
-                $tutorname = Tutor::where('id', $student->tutor_ID)->first();
-                $student->tutor_name = $tutorname['tutor_name'];
-            }
-
-            $country = User::where('id', $student->user_ID)->first();
-            $student->country = $country['country'];
-            $student->countryFlag = $this->getCountryFlag($country['country']);
-        }
+        $this->addInfo($students);
 
         return response()->json($students);
 
@@ -143,14 +127,7 @@ class StudentApiController extends Controller
             Student::where('id', $student)->update(['tutor_ID'=> $tutorid]);
         }
 
-        // return response()->json($students);
-
-        return response('success?');
-
-
-        // return response(dd($students))
-        //     ->header('Access-Control-Allow-Origin', '*')
-        //     ->header('Access-Control-Allow-Methods', '*');
+        return response('Set Tutor successful');
     }
 
     /**
@@ -199,6 +176,7 @@ class StudentApiController extends Controller
         $loginDate = Carbon::now()->subDays(7);
         $students = Student::whereDate('lastLoggedIn', '>', $loginDate)->get([
             'id',
+            'student_ID',
             'user_ID',
             'student_name as name',
             'student_email as email',
@@ -206,16 +184,7 @@ class StudentApiController extends Controller
             'tutor_ID'
         ]);
 
-        foreach($students as $student){
-            if($student->tutor_ID != ''){
-                $tutorname = Tutor::where('id', $student->tutor_ID)->first();
-                $student->tutor_name = $tutorname['tutor_name'];
-            }
-
-            $country = User::where('id', $student->user_ID)->first();
-            $student->country = $country['country'];
-            $student->countryFlag = $this->getCountryFlag($country['country']);
-        }
+        $this->addInfo($students);
 
         return response()->json($students);
     }
@@ -224,6 +193,7 @@ class StudentApiController extends Controller
     {
         $students = Student::whereNull('tutor_ID')->get([
             'id',
+            'student_ID',
             'user_ID',
             'student_name as name',
             'student_email as email',

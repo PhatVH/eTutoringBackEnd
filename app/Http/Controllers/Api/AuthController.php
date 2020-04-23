@@ -44,7 +44,8 @@ class AuthController extends Controller
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'country' => 'required'
+            'country' => 'required',
+            'student_id' => 'nullable'
         ]);
 
         if ($validator->fails())
@@ -64,6 +65,7 @@ class AuthController extends Controller
         switch($request['role']){
             case 'student':
                 $student = Student::create([
+                    'student_ID' => $request['student_id'],
                     'student_name' => $request['name'],
                     'student_email' => $request['email'],
                     'student_phone' => $request['phone'],
@@ -139,6 +141,7 @@ class AuthController extends Controller
 
                         return response()->json([
                             'id' => $student->id,
+                            'student_ID' => $student->student_ID,
                             'user_ID' => $userid,
                             'name' => $student->student_name,
                             'email' => $student->student_email,
