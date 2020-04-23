@@ -55,29 +55,44 @@ class AuthController extends Controller
 
         $request['password']=Hash::make($request['password']);
 
-        $userid = User::create([
-            'username' => $request['username'],
-            'password' => $request['password'],
-            'role' => $request['role'],
-            'country' => $request['country']
-        ])->id;
-
         switch($request['role']){
             case 'student':
-                $student = Student::create([
-                    'student_ID' => $request['student_id'],
-                    'student_name' => $request['name'],
-                    'student_email' => $request['email'],
-                    'student_phone' => $request['phone'],
-                    'user_ID' => $userid
-                ]);
 
-                return response()->json([
-                    'message' => 'Register successful',
-                ]);
+                if($request['student_id'] != ''){
+                    $userid = User::create([
+                    'username' => $request['username'],
+                    'password' => $request['password'],
+                    'role' => $request['role'],
+                    'country' => $request['country']
+                    ])->id;
+
+                    Student::create([
+                        'student_ID' => $request['student_id'],
+                        'student_name' => $request['name'],
+                        'student_email' => $request['email'],
+                        'student_phone' => $request['phone'],
+                        'user_ID' => $userid
+                    ]);
+
+                    return response()->json([
+                        'message' => 'Register successful',
+                    ]);
+                } else {
+                    return response()->json('Missing param student_id when register with student role');
+                }
+
+
                 break;
             case 'tutor':
-                $tutor = Tutor::create([
+
+                $userid = User::create([
+                    'username' => $request['username'],
+                    'password' => $request['password'],
+                    'role' => $request['role'],
+                    'country' => $request['country']
+                ])->id;
+
+                Tutor::create([
                     'tutor_name' => $request['name'],
                     'tutor_email' => $request['email'],
                     'tutor_phone' => $request['phone'],
@@ -89,7 +104,15 @@ class AuthController extends Controller
                 ]);
                 break;
             case 'staff':
-                $staff = Staff::create([
+
+                $userid = User::create([
+                    'username' => $request['username'],
+                    'password' => $request['password'],
+                    'role' => $request['role'],
+                    'country' => $request['country']
+                ])->id;
+
+                Staff::create([
                     'staff_name' => $request['name'],
                     'staff_email' => $request['email'],
                     'staff_phone' => $request['phone'],
