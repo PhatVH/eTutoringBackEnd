@@ -87,9 +87,6 @@ class MeetingApiController extends Controller
      */
     public function show(Request $request)
     {
-        $request->validate([
-            'id' => 'required'
-        ]);
 
         $meetings = Meeting::where('id', $request['id'])->get();
 
@@ -118,9 +115,6 @@ class MeetingApiController extends Controller
 
     public function showByInvite(Request $request)
     {
-        $request->validate([
-            'user_id' => 'required'
-        ]);
 
         $meetings = Meeting::where('invite_ID', $request['user_id'])->get();
 
@@ -134,9 +128,6 @@ class MeetingApiController extends Controller
 
     public function showByHost(Request $request)
     {
-        $request->validate([
-            'user_id' => 'required'
-        ]);
 
         $meetings = Meeting::where('host_ID', $request['user_id'])->get();
 
