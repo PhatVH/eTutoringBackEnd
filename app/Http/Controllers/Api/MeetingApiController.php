@@ -79,6 +79,36 @@ class MeetingApiController extends Controller
 
     }
 
+    public function studentCreateMeeting(Request $request){
+        $request->validate([
+            'host_ID' => 'required',
+            'start' => 'required',
+            'end' => 'required',
+            'title' => 'required',
+        ]);
+
+        $student = Student::where('user_ID', $request['host_ID'])->first();
+
+        if($student['tutor_ID'] != ''){
+            $tutor = Tutor::where('id', $student['tutor_ID'])->first();
+
+            $meeting = Meeting::create([
+                'host_ID' => $request['host_ID'],
+                'start' => $request['start'],
+                'end' => $request['end'],
+                'title' => $request['title'],
+                'invite_ID' => $tutor['user_ID']
+            ]);
+
+            return response()->json([
+                'message' => 'Add meeting successful',
+                'meeting' => $meeting
+            ]);
+        } else {
+            return response()->json('This student does not have a tutor');
+        }
+    }
+
     /**
      * Display the specified resource.
      *
@@ -111,21 +141,6 @@ class MeetingApiController extends Controller
 
         return response()->json($meetings);
     }
-
-    // public function showMyMeetings(Request $request)
-    // {
-    //     $request->validate([
-    //         'id' => 'required'
-    //     ]);
-
-    //     $role = User::where('id', )
-
-    //     // $meetings = Meeting::where('host', $request['id']);
-
-    //     return response()->json([
-    //         'schedule' => $meetings
-    //     ]);
-    // }
 
     public function showByInvite(Request $request)
     {

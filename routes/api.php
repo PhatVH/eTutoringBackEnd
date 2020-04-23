@@ -69,6 +69,7 @@ Route::namespace('Api')->group(function () {
     Route::get('/getStudentsByTutorId', 'StudentApiController@indexByTutor');
     Route::post('/setTutorToStudent', 'StudentApiController@setPersonalTutor');
     Route::get('/getStudent', 'StudentApiController@show');
+    Route::get('/getTutorOfStudent  ', 'StudentApiController@getTutor');
     Route::post('/deleteStudent', 'StudentApiController@destroy');
     Route::get('/studentsWithNoInteraction', 'StudentApiController@studentsWithNoInteraction');
     Route::get('/studentsWithoutTutor', 'StudentApiController@studentsWithoutTutor');
@@ -86,6 +87,7 @@ Route::namespace('Api')->group(function () {
     Route::get('/getAllMeetings', 'MeetingApiController@index');
     Route::get('/getAllMeetingsByUserId', 'MeetingApiController@showById');
     Route::post('/createMeeting', 'MeetingApiController@store');
+    Route::post('/studentCreateMeeting', 'MeetingApiController@studentCreateMeeting');
     Route::get('/getMeeting', 'MeetingApiController@show');
     Route::get('/getMeetingByHost', 'MeetingApiController@showByHost');
     Route::get('/getMeetingByInvite', 'MeetingApiController@showByInvite');
