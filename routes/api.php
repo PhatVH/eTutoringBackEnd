@@ -39,20 +39,6 @@ Route::namespace('Api')->group(function () {
     Route::put('/blog/{document}', 'BlogApiController@update');
     Route::delete('/deleteBlog', 'BlogApiController@destroy');
 
-    //Document API Routes
-    Route::get('/document', 'DocumentApiController@index');
-    Route::post('/document', 'DocumentApiController@store');
-    Route::get('/getDocument', 'DocumentApiController@show');
-    Route::put('/document/{document}', 'DocumentApiController@update');
-    Route::delete('/document/{document}', 'DocumentApiController@destroy');
-
-    //Event API Routes
-    Route::get('/getAllEvents', 'EventApiController@index');
-    Route::post('/addNewEvent', 'EventApiController@store');
-    Route::get('/getEvents', 'EventApiController@show');
-    Route::put('/event/{event}', 'EventApiController@update');
-    Route::delete('/deleteEvent', 'EventApiController@destroy');
-
     //Message API Routes
     Route::get('/showMessage', 'MessageApiController@showMessage');
     Route::post('/writeMessage', 'MessageApiController@writeMessage');

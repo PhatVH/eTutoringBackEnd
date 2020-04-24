@@ -73,20 +73,26 @@ class StudentApiController extends Controller
 
     }
 
-    public function indexByTutor()
+    public function indexByTutor(Request $request)
     {
 
-        $students = Student::where('tutor_ID', Request('tutor_ID'))
-                ->orderBy('student_name')
-                ->get([
-                'id',
-                'student_ID',
-                'user_ID',
-                'student_name as name',
-                'student_email as email',
-                'student_phone as phone',
-                'tutor_ID'
-        ]);
+        $students = Student::where('tutor_ID', $request->input('tutor_ID'));
+
+
+        if($request->has('name_like')){
+            $students = $students->where('student_name', 'ilike', '%' . $request->input('name_like') . '%');
+        }
+
+        $students = $students->orderBy('student_name')
+            ->get([
+            'id',
+            'student_ID',
+            'user_ID',
+            'student_name as name',
+            'student_email as email',
+            'student_phone as phone',
+            'tutor_ID'
+            ]);
 
         $this->addInfo($students);
 
@@ -193,7 +199,13 @@ class StudentApiController extends Controller
 
     public function studentsWithoutTutor(Request $request)
     {
-        $students = Student::whereNull('tutor_ID')->get([
+        $students = Student::whereNull('tutor_ID');
+
+        if($request->has('name_like')){
+            $students = $students->where('student_name', 'ilike', '%' . $request->input('name_like') . '%');
+        }
+
+        $students = $students->get([
             'id',
             'student_ID',
             'user_ID',
