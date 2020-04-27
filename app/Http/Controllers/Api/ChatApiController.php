@@ -25,7 +25,10 @@ class ChatApiController extends Controller
             'content'
             ]);
 
-            return response()->json($contents);
+            return response()->json([
+                'chat_id' => $chat['id'],
+                'chat' => $contents
+            ]);
         } else {
             $chatid = Chat::create([
                 'student_user_id' => $request['student_user_id'],
