@@ -29,7 +29,12 @@ class ChatApiController extends Controller
 
             return response()->json($contents);
         } else {
-            return response()->json();
+            $chatid = Chat::create([
+                'user1' => $request['user_id1'],
+                'user2' => $request['user_id2']
+            ])->id;
+
+            return response()->json($chatid);
         }
 
     }
