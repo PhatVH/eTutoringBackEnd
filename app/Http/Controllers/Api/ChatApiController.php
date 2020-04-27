@@ -16,8 +16,6 @@ class ChatApiController extends Controller
             'tutor_user_id' => $request['tutor_user_id']
         ])->first();
 
-
-
         if($chat){
             $contents = chatContent::where('chat_ID', $chat['id'])
             ->orderBy('created_at')
@@ -30,8 +28,8 @@ class ChatApiController extends Controller
             return response()->json($contents);
         } else {
             $chatid = Chat::create([
-                'user1' => $request['user_id1'],
-                'user2' => $request['user_id2']
+                'student_user_id' => $request['student_user_id'],
+                'tutor_user_id' => $request['tutor_user_id']
             ])->id;
 
             return response()->json(['chat_id' => $chatid]);
@@ -52,13 +50,13 @@ class ChatApiController extends Controller
             return response()->json($content);
         } else{
             $chatid = Chat::create([
-                'user1' => $request['user_id1'],
-                'user2' => $request['user_id2']
+                'student_user_id' => $request['student_user_id'],
+                'tutor_user_id' => $request['tutor_user_id']
             ])->id;
 
             $content = chatContent::create([
                 'chat_ID' => $chatid,
-                'sender' => $request['user_id1'],
+                'sender' => $request['user_id'],
                 'content' => $request['content']
             ]);
 
