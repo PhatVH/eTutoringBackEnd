@@ -16,15 +16,21 @@ class ChatApiController extends Controller
             'tutor_user_id' => $request['tutor_user_id']
         ])->first();
 
-        $contents = chatContent::where('chat_ID', $chat['id'])
+
+
+        if($chat){
+            $contents = chatContent::where('chat_ID', $chat['id'])
             ->orderBy('created_at')
             ->get([
             'chat_ID as chat_id',
             'sender as user_id',
             'content'
-        ]);
+            ]);
 
-        return response()->json($contents);
+            return response()->json($contents);
+        } else {
+            return response()->json();
+        }
 
     }
 
