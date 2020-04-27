@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\MeetingApiController;
+use App\Http\Controllers\Api\StatApiController;
 use Illuminate\Http\Request;
 
 /*
@@ -85,4 +86,9 @@ Route::namespace('Api')->group(function () {
 
     //Notification
     Route::get('/getNotification', 'LogApiController@index');
+
+    //Statistics
+    Route::get('/getNumberOfChat', 'StatApiController@messagesLast7Days');
+    Route::get('/getNumberOfChatTutor', 'StatApiController@tutorMessagesLast7Days');
+    Route::get('/getNumberOfChatStudent', 'StatApiController@studentMessagesLast7Days');
 });
