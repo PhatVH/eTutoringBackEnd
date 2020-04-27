@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Student;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Log;
 use App\Tutor;
 use App\User;
 use Carbon\Carbon;
@@ -30,6 +31,13 @@ class StudentApiController extends Controller
                 return 'No flag';
                 break;
         }
+    }
+
+    public function doLog($id, $content){
+        Log::create([
+            'user_ID' => $id,
+            'log_content' => $content
+        ]);
     }
 
     public function addInfo($students){
@@ -130,7 +138,44 @@ class StudentApiController extends Controller
         $students = request('student_id');
 
         foreach($students as $student){
-            Student::where('id', $student)->update(['tutor_ID'=> $tutorid]);
+
+            //Get student info
+            $stu = Student::where('id', $student)->first();
+            //Update tutor
+            Student::where('id', $student)->update(['tutor_ID' => $tutorid]);
+
+            //Logging
+            $tut = Tutor::where('id', $tutorid)->first();
+
+            //If tutor exist (allocating tutor)
+            if($tut){
+                //Get tutor info
+                $tut = Tutor::where('id', $tutorid)->first();
+
+                //Log for student
+                $this->doLog($stu['user_ID'],
+                    'You have been alocated to Tutor ' . $tut['tutor_name']);
+
+                //Log for tutor
+                $this->doLog($tut['user_ID'],
+                    'You have been allocated to Student ' . $stu['student_name']);
+            } else { //If tutor not exist (unallocating tutor)
+                //If student is having a tutor
+                if($stu['tutor_ID'] != ''){
+
+                    //Get current tutor info
+                    $tu = Tutor::where('id', $stu['tutor_ID'])->first();
+
+                    //Log for tutor
+                    $this->doLog($tu['user_ID'],
+                        'You have been unallocated from Student ' . $stu['student_name']);
+
+                    //Log for student
+                    $this->doLog($stu['user_ID'],
+                        'You have been unallocated from Tutor ' . $tu['tutor_name']);
+
+                }
+            }
         }
 
         return response()->json([
@@ -182,7 +227,7 @@ class StudentApiController extends Controller
     public function studentsWithNoInteraction(Request $request)
     {
         $loginDate = Carbon::now()->subDays(7);
-        $students = Student::whereDate('lastLoggedIn', '>', $loginDate)->get([
+        $students = Student::whereDate('lastLoggedIn', '<', $loginDate)->get([
             'id',
             'student_ID',
             'user_ID',

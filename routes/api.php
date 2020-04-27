@@ -82,4 +82,7 @@ Route::namespace('Api')->group(function () {
     //chat API Routes
     Route::get('/getAllMessage', 'ChatApiController@getAllMessage');
     Route::post('/sendMessage', 'ChatApiController@sendMessage');
+
+    //Notification
+    Route::get('/getNotification', 'LogApiController@index');
 });
