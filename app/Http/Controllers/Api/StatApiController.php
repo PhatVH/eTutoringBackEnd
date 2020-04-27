@@ -17,7 +17,7 @@ class StatApiController extends Controller
         for ($i = 0; $i < 7; $i++){
             $day = Carbon::now()->subDays($i)->toDateString();
             $chatsThisDay = chatContent::whereBetween('created_at', [$day . ' 00:00:00', $day . ' 23:59:59'])->count();
-            $arr[$day] = $chatsThisDay;
+            $arr[] = $chatsThisDay;
         }
 
         return response()->json(array_reverse($arr));
@@ -31,7 +31,7 @@ class StatApiController extends Controller
             $chatsThisDay = DB::table('chat_contents')->whereBetween('chat_contents.created_at', [$day . ' 00:00:00', $day . ' 23:59:59'])
                 ->join('tutors', 'chat_contents.sender', '=', 'tutors.user_ID')
                 ->count();
-            $arr[$day] = $chatsThisDay;
+            $arr[] = $chatsThisDay;
         }
 
         return response()->json(array_reverse($arr));
@@ -45,7 +45,7 @@ class StatApiController extends Controller
             $chatsThisDay = DB::table('chat_contents')->whereBetween('chat_contents.created_at', [$day . ' 00:00:00', $day . ' 23:59:59'])
                 ->join('students', 'chat_contents.sender', '=', 'students.user_ID')
                 ->count();
-            $arr[$day] = $chatsThisDay;
+            $arr[] = $chatsThisDay;
         }
 
         return response()->json(array_reverse($arr));
