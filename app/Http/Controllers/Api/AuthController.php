@@ -142,15 +142,14 @@ class AuthController extends Controller
 
         $user = User::where('username', $request->username)->first();
 
-        if ($user) {
-
+        if($user) {
             if (Hash::check($request->password, $user->password)) {
-                // $token = $user->createToken('Laravel Password Grant Client')->accessToken;
                 $role = $user->role;
                 $userid = $user->id;
                 $countryFlag = $this->getCountryFlag($user->country);
                 switch($role){
                     case 'student':
+
                         $student = Student::where('user_ID', $userid)->first();
                         Student::where('user_ID', $userid)->update([
                             'lastLoggedIn' => now()
@@ -179,6 +178,7 @@ class AuthController extends Controller
                         break;
 
                     case 'tutor':
+
                         $tutor = Tutor::where('user_ID', $userid)->first();
 
                         return response()->json([
@@ -194,6 +194,7 @@ class AuthController extends Controller
                         break;
 
                     case 'staff':
+
                         $staff = Staff::where('user_ID', $userid)->first();
 
                         return response()->json([

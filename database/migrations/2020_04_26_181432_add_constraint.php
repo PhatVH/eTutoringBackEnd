@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddConstraints extends Migration
+class AddConstraint extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,6 @@ class AddConstraints extends Migration
      */
     public function up()
     {
-        //Add constraints to tables
-
         Schema::table('students', function (Blueprint $table) {
             $table->foreign('user_ID')->references('id')->on('users');
             $table->foreign('tutor_ID')->references('id')->on('tutors');
@@ -36,6 +34,16 @@ class AddConstraints extends Migration
         Schema::table('meetings', function (Blueprint $table) {
             $table->foreign('host_ID')->references('id')->on('users');
             $table->foreign('invite_ID')->references('id')->on('users');
+        });
+
+        Schema::table('chats', function (Blueprint $table) {
+            $table->foreign('tutor_user_id')->references('id')->on('users');
+            $table->foreign('student_user_id')->references('id')->on('users');
+        });
+
+        Schema::table('chat_contents', function (Blueprint $table) {
+            $table->foreign('chat_ID')->references('id')->on('chats');
+            $table->foreign('sender')->references('id')->on('users');
         });
     }
 
