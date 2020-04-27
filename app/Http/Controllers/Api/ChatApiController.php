@@ -34,7 +34,7 @@ class ChatApiController extends Controller
                 'user2' => $request['user_id2']
             ])->id;
 
-            return response()->json($chatid);
+            return response()->json(['chat_id' => $chatid]);
         }
 
     }
