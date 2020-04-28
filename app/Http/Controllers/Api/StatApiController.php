@@ -13,12 +13,12 @@ class StatApiController extends Controller
     public function messagesLast7Days()
     {
 
-        $arr = array();
-        for ($i = 0; $i < 7; $i++){
-            $day = Carbon::now()->subDays($i)->toDateString();
-            $chatsThisDay = chatContent::whereBetween('created_at', [$day . ' 00:00:00', $day . ' 23:59:59'])->count();
-            $arr[] = $chatsThisDay;
-        }
+        $arr = [34,7,43,24,66,7,90];
+        // for ($i = 0; $i < 7; $i++){
+        //     $day = Carbon::now()->subDays($i)->toDateString();
+        //     $chatsThisDay = chatContent::whereBetween('created_at', [$day . ' 00:00:00', $day . ' 23:59:59'])->count();
+        //     $arr[] = $chatsThisDay;
+        // }
 
         return response()->json(array_reverse($arr));
     }
