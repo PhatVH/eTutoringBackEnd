@@ -20,7 +20,10 @@ class StatApiController extends Controller
         //     $arr[] = $chatsThisDay;
         // }
 
-        return response()->json(array_reverse($arr));
+        return response()->json([
+            'message' => 'success',
+            'numberMess' => array_reverse($arr)
+        ]);
     }
 
     public function tutorMessagesLast7Days(){
