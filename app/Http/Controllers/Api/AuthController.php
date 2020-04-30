@@ -124,9 +124,9 @@ class AuthController extends Controller
                 ]);
                 break;
             default:
-                    return response()->json([
-                        'message' => 'Role unavailable'
-                    ]);
+                return response()->json([
+                    'message' => 'Role unavailable'
+                ]);
         }
 
 
