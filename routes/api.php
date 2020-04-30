@@ -78,6 +78,8 @@ Route::namespace('Api')->group(function () {
     Route::get('/getMeeting', 'MeetingApiController@show');
     Route::get('/getMeetingByHost', 'MeetingApiController@showByHost');
     Route::get('/getMeetingByInvite', 'MeetingApiController@showByInvite');
+    Route::get('/showMeetingNotes', 'MeetingApiController@showMeetingNotes');
+    Route::post('/addMeetingNote', 'MeetingApiController@addMeetingNote');
     Route::post('/deleteMeeting', 'MeetingApiController@destroy');
 
     //chat API Routes

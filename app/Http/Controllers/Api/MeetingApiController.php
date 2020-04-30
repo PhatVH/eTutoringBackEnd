@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Meeting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\MeetingNote;
 use App\Student;
 use App\Tutor;
 use App\User;
@@ -168,16 +169,24 @@ class MeetingApiController extends Controller
         return response()->json($meetings);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Meeting  $meeting
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Meeting $meeting)
+    public function showMeetingNotes(Request $request)
     {
-        //
+        $notes = MeetingNote::where('meeting_ID', $request['meeting_id'])->get();
+
+        return response()->json($notes);
+    }
+
+    public function addMeetingNote(Request $request)
+    {
+        MeetingNote::create([
+            'meeting_ID' => $request['meeting_id'],
+            'user_ID' => $request['user_id'],
+            'content' => $request['content']
+        ]);
+
+        return response()->json([
+            'message' => 'Add notes successful'
+        ]);
     }
 
     /**
