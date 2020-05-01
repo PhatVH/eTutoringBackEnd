@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MeetingNote extends Model
+class Note extends Model
 {
     protected $fillable = [
-        'meeting_ID',
         'user_ID',
+        'title',
         'content'
     ];
 }

@@ -31,15 +31,6 @@ Route::namespace('Api')->group(function () {
         Route::get('/logout', 'AuthController@logout')->name('logout');
     });
 
-    //Blog API Routes
-    Route::get('/blog', 'BlogApiController@index');
-    Route::post('/saveStudentBlog', 'BlogApiController@saveStudentBlog');
-    Route::post('/saveTutorBlog', 'BlogApiController@saveTutorBlog');
-    Route::get('/showStudentBlogs', 'BlogApiController@showStudentBlog');
-    Route::get('/showTutorBlogs', 'BlogApiController@showTutorBlog');
-    Route::put('/blog/{document}', 'BlogApiController@update');
-    Route::delete('/deleteBlog', 'BlogApiController@destroy');
-
     //Message API Routes
     Route::get('/showMessage', 'MessageApiController@showMessage');
     Route::post('/writeMessage', 'MessageApiController@writeMessage');
@@ -78,9 +69,11 @@ Route::namespace('Api')->group(function () {
     Route::get('/getMeeting', 'MeetingApiController@show');
     Route::get('/getMeetingByHost', 'MeetingApiController@showByHost');
     Route::get('/getMeetingByInvite', 'MeetingApiController@showByInvite');
-    Route::get('/showMeetingNotes', 'MeetingApiController@showMeetingNotes');
-    Route::post('/addMeetingNote', 'MeetingApiController@addMeetingNote');
     Route::post('/deleteMeeting', 'MeetingApiController@destroy');
+
+    //Note API Routes
+    Route::post('/addNote', 'NoteApiController@addNote');
+    Route::get('/showNotes', 'NoteApiController@viewNotes');
 
     //chat API Routes
     Route::get('/getAllMessage', 'ChatApiController@getAllMessage');

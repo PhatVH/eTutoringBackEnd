@@ -169,26 +169,6 @@ class MeetingApiController extends Controller
         return response()->json($meetings);
     }
 
-    public function showMeetingNotes(Request $request)
-    {
-        $notes = MeetingNote::where('meeting_ID', $request['meeting_id'])->get();
-
-        return response()->json($notes);
-    }
-
-    public function addMeetingNote(Request $request)
-    {
-        MeetingNote::create([
-            'meeting_ID' => $request['meeting_id'],
-            'user_ID' => $request['user_id'],
-            'content' => $request['content']
-        ]);
-
-        return response()->json([
-            'message' => 'Add notes successful'
-        ]);
-    }
-
     /**
      * Remove the specified resource from storage.
      *
