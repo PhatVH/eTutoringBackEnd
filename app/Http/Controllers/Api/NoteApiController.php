@@ -27,4 +27,13 @@ class NoteApiController extends Controller
 
         return response()->json($notes);
     }
+
+    public function deleteNote(Request $request)
+    {
+        Note::where('id', $request['note_id'])->delete();
+
+        return response()->json([
+            'message' => 'Delete note successful'
+        ]);
+    }
 }
