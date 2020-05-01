@@ -74,6 +74,7 @@ Route::namespace('Api')->group(function () {
     //Note API Routes
     Route::post('/addNote', 'NoteApiController@addNote');
     Route::get('/showNotes', 'NoteApiController@viewNotes');
+    Route::post('/deleteNote', 'NoteApiController@deleteNote');
 
     //chat API Routes
     Route::get('/getAllMessage', 'ChatApiController@getAllMessage');
