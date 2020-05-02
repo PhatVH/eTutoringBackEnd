@@ -25,7 +25,8 @@ class StatApiController extends Controller
         ]);
     }
 
-    public function tutorMessagesLast7Days(){
+    public function tutorMessagesLast7Days()
+    {
 
         $arr = array();
         for ($i = 0; $i < 7; $i++){
@@ -42,7 +43,8 @@ class StatApiController extends Controller
         ]);
     }
 
-    public function studentMessagesLast7Days(){
+    public function studentMessagesLast7Days()
+    {
 
         $arr = array();
         for ($i = 0; $i < 7; $i++){
@@ -57,5 +59,12 @@ class StatApiController extends Controller
             'message' => 'success',
             'numberMess' => array_reverse($arr)
         ]);
+    }
+
+    public function totalMessagesLast7Days()
+    {
+        $chats = chatContent::whereBetween('created_at', [Carbon::now()->toDateString(), Carbon::now()->subDays(7)->toDateString()])->count();
+
+        return response()->json($chats);
     }
 }
