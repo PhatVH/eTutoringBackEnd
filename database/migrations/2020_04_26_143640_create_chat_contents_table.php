@@ -15,8 +15,8 @@ class CreateChatContentsTable extends Migration
     {
         Schema::create('chat_contents', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('chat_ID');
-            $table->unsignedBigInteger('sender');
+            $table->unsignedBigInteger('chat_ID')->nullable();
+            $table->unsignedBigInteger('sender')->nullable();
             $table->text('content');
             $table->timestamps();
         });
