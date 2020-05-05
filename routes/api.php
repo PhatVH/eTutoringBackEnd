@@ -58,13 +58,9 @@ Route::namespace('Api')->group(function () {
     Route::post('/deleteTutor', 'TutorApiController@destroy');
 
     //Meeting API Routes
-    Route::get('/getAllMeetings', 'MeetingApiController@index');
     Route::get('/getAllMeetingsByUserId', 'MeetingApiController@showById');
     Route::post('/createMeeting', 'MeetingApiController@store');
     Route::post('/studentCreateMeeting', 'MeetingApiController@studentCreateMeeting');
-    Route::get('/getMeeting', 'MeetingApiController@show');
-    Route::get('/getMeetingByHost', 'MeetingApiController@showByHost');
-    Route::get('/getMeetingByInvite', 'MeetingApiController@showByInvite');
     Route::post('/deleteMeeting', 'MeetingApiController@destroy');
 
     //Note API Routes
