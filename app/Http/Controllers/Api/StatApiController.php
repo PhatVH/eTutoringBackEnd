@@ -65,6 +65,30 @@ class StatApiController extends Controller
     {
         $chats = chatContent::where('created_at', '>', Carbon::now()->subDay(7))->count();
 
-        return response()->json($chats);
+        return response()->json([
+            'totalMess' => $chats
+        ]);
+    }
+
+    public function tutorsTotalMessagesLast7Days()
+    {
+        $chats = DB::table('chat_contents')->where('created_at', '>', Carbon::now()->subDay(7))
+            ->join('tutors', 'chat_contents.sender', '=', 'tutors.user_ID')
+            ->count();
+
+        return response()->json([
+            'totalMess' => $chats
+        ]);
+    }
+
+    public function studentsTotalMessagesLast7Days()
+    {
+        $chats = DB::table('chat_contents')->where('created_at', '>', Carbon::now()->subDay(7))
+            ->join('students', 'chat_contents.sender', '=', 'tutors.user_ID')
+            ->count();
+
+        return response()->json([
+            'totalMess' => $chats
+        ]);
     }
 }

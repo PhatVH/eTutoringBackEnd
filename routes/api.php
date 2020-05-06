@@ -88,4 +88,6 @@ Route::namespace('Api')->group(function () {
     Route::get('/getNumberOfChatTutor', 'StatApiController@tutorMessagesLast7Days');
     Route::get('/getNumberOfChatStudent', 'StatApiController@studentMessagesLast7Days');
     Route::get('/getTotalNumberOfChats', 'StatApiController@totalMessagesLast7Days');
+    Route::get('/getTotalNumberOfChatsTutors', 'StatApiController@tutorsTotalMessagesLast7Days');
+    Route::get('/getTotalNumberOfChatsStudents', 'StatApiController@studentsTotalMessagesLast7Days');
 });
