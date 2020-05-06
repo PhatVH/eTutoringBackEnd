@@ -63,7 +63,7 @@ class StatApiController extends Controller
 
     public function totalMessagesLast7Days()
     {
-        $chats = chatContent::whereBetween('created_at', [Carbon::now()->toDateString(), Carbon::now()->subDays(7)->toDateString()])->count();
+        $chats = chatContent::where('created_at', '>', Carbon::now()->subDays(7))->count();
 
         return response()->json($chats);
     }
