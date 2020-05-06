@@ -31,6 +31,10 @@ Route::namespace('Api')->group(function () {
         Route::get('/logout', 'AuthController@logout')->name('logout');
     });
 
+    //Message API Routes
+    Route::get('/showMessage', 'MessageApiController@showMessage');
+    Route::post('/writeMessage', 'MessageApiController@writeMessage');
+
     //Staff API Routes
     Route::get('/getAllStaff', 'StaffApiController@index');
     Route::post('/addStaff', 'StaffApiController@store');
@@ -50,9 +54,9 @@ Route::namespace('Api')->group(function () {
     Route::get('/getTutorByStudentId', 'StudentApiController@getTutor');
 
     //Tutor API Routes
-    Route::get('/getAllTutor', 'TutorApiController@index');
-    Route::post('/addTutor', 'TutorApiController@store');
-    Route::get('/getTutor', 'TutorApiController@show');
+    Route::get('/getAllTutor', 'TutorApiController@index'); //View all
+    Route::post('/addTutor', 'TutorApiController@store'); //Add
+    Route::get('/getTutor', 'TutorApiController@show'); //Get 1
     Route::get('/findTutorByName', 'TutorApiController@findTutorByName');
     Route::post('/updateTutor', 'TutorApiController@update');
     Route::post('/deleteTutor', 'TutorApiController@destroy');

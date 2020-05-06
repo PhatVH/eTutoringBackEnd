@@ -19,7 +19,7 @@ class CreateLogsTable extends Migration
             $table->string('log_content');
             $table->timestamps();
 
-            $table->foreign('user_ID')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('user_ID')->references('id')->on('users');
         });
     }
 
