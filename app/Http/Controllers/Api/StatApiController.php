@@ -81,6 +81,7 @@ class StatApiController extends Controller
         $arr[] = $chatsStudent;
 
         return response()->json([
+            'message' => 'success',
             'totalMess' => $arr
         ]);
     }
